@@ -1,3 +1,6 @@
+_______________________________         DATABASE
+drop database sigra; create database sigra;
+-------------------------------
 _______________________________         ANGULAR
 ng new Sigra //crear proyecto
 - configurar la estructura de carpetas
@@ -22,14 +25,14 @@ ng g component auth --inline-style --skip-tests --inline-template
 ng g component auth/login --inline-style --skip-tests
 ng g component auth/register --inline-style --skip-tests
 ng g component auth/Profile --inline-style --skip-tests
+
 ng g service auth/services/auth  --skip-tests
 ng g guard auth/services/auth  --skip-tests ;[enter]
 
 ng g component dashboard/admin/pages/home-admin --inline-style --skip-tests
+
 -------------------------------
-_______________________________         DATABASE
-drop database sigra; create database sigra;
--------------------------------
+
 _______________________________         LARAVEL
 composer create-project laravel/laravel:^11.0 Api_Sigra
 - configurar .env --database
@@ -39,10 +42,12 @@ composer create-project laravel/laravel:^11.0 Api_Sigra
   php artisan migrate:refresh
   php artisan db:seed
 }
-
-php artisan make:controller Api/ApiController //configurar funciones CRUD
-php artisan install:api --passport [no] ++ //Confugurar modelo user.php y auth.php
-php artisan passport:client --personal [API Auth] ++ //
+//configurar funciones CRUD
+php artisan make:controller Api/ApiController --model=User --api
+php artisan install:api --passport
+//[no] ++ //Configurar modelo user.php y auth.php
+php artisan passport:client --personal --name="SIGRA Personal Access Client"
+//puedes elegir otro nombre como : [API Auth] ++
 - configurar -rutes.php, video-min 10->: https://www.youtube.com/watch?v=iCGZ6iRq5hg
 
 !!!!!!!!!!!!-LISTO
