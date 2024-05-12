@@ -11,6 +11,10 @@ use Laravel\Passport\HasApiTokens;
 class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasApiTokens;
+    //RELACIONES CON OTRAS TABLAS
+    public function Program(){
+        return $this->hasMany(Program::class);
+    }
 
     /**
      * The attributes that are mass assignable.

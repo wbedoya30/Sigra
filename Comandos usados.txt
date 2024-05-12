@@ -81,7 +81,7 @@ php artisan make:seeder LevelSedeer
 php artisan make:seeder PensumSedeer
 php artisan make:seeder TaxonomySedeer
 php artisan make:seeder LearningResultSedeer
-php artisan make:seeder GraduateRrofileSedeer
+php artisan make:seeder GraduateProfileSedeer
 php artisan make:seeder CompetenceSedeer
 
 php artisan make:controller SubjectController --model=Subject --api
@@ -89,7 +89,7 @@ php artisan make:controller ProgramController --model=Program --api
 php artisan make:controller LevelController --model=Level --api
 php artisan make:controller PensumController --model=Pensum --api
 php artisan make:controller TaxonomyController --model=Taxonomy --api
-php artisan make:controller Resultado_aprendizajeController --model=Learning_results --api
-php artisan make:controller Perfil_egresoController --model=Graduate_profiles --api
-php artisan make:controller CompetenciaController --model=Competence --api
+php artisan make:controller LearningResultController --model=LearningResult --api
+php artisan make:controller GraduateProfileController --model=GraduateProfile --api
+php artisan make:controller CompetenceController --model=Competence --api
 
