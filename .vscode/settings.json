@@ -1,6 +1,9 @@
 {
     "cSpell.words": [
         "artisan",
+        "bloom",
+        "Blueprint",
+        "Competence",
         "competencies",
         "composer",
         "controller",
@@ -9,10 +12,14 @@
         "graduate",
         "guard",
         "laravel",
+        "learning",
         "Learning",
         "migrate",
         "pages",
         "passport",
+        "Pensum",
+        "pensums",
+        "Program",
         "programs",
         "Sedeer",
         "seed",
@@ -22,6 +29,10 @@
         "Sigra",
         "skip",
         "style",
-        "subjects"
+        "Subject",
+        "subjects",
+        "taxonomy",
+        "taxonomys",
+        "verb"
     ]
 }

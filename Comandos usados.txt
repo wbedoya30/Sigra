@@ -66,29 +66,30 @@ php artisan make:seeder UserSedeer
   NOTA: manejo de nombres en ingles y plurales para las migraciones
 }
 
-php artisan make:migration create_asignaturas_table
-php artisan make:migration create_programas_table
-php artisan make:migration create_nivels_table
+php artisan make:migration create_subjects_table
+php artisan make:migration create_programs_table
+php artisan make:migration create_Taxonomys_table ///////////////////////
+php artisan make:migration create_levels_table
 php artisan make:migration create_pensums_table
-php artisan make:migration create_taxonomias_table
-php artisan make:migration create_resultado_aprendizajes_table
-php artisan make:migration create_perfil_egresos_table
-php artisan make:migration create_competencias_table
+php artisan make:migration create_learning_results_table
+php artisan make:migration create_graduate_profiles_table
+php artisan make:migration create_competencies_table
 
-php artisan make:seeder AsignaturaSedeer
-php artisan make:seeder ProgramaSedeer
-php artisan make:seeder NivelSedeer
+php artisan make:seeder SubjectSedeer
+php artisan make:seeder ProgramSedeer
+php artisan make:seeder LevelSedeer
 php artisan make:seeder PensumSedeer
-php artisan make:seeder Resultado_aprendizajeSedeer
-php artisan make:seeder Perfil_egresoSedeer
-php artisan make:seeder CompetenciaSedeer
+php artisan make:seeder TaxonomySedeer
+php artisan make:seeder LearningResultSedeer
+php artisan make:seeder GraduateRrofileSedeer
+php artisan make:seeder CompetenceSedeer
 
-php artisan make:controller AsignaturaController --model=Asignatura --api
-php artisan make:controller ProgramaController --model=Programa --api
-php artisan make:controller NivelController --model=Nivel --api
+php artisan make:controller SubjectController --model=Subject --api
+php artisan make:controller ProgramController --model=Program --api
+php artisan make:controller LevelController --model=Level --api
 php artisan make:controller PensumController --model=Pensum --api
-php artisan make:controller TaxonomiaController --model=Taxonomia --api
-php artisan make:controller Resultado_aprendizajeController --model=Resultado_aprendizaje --api
-php artisan make:controller Perfil_egresoController --model=Perfil_egreso --api
-php artisan make:controller CompetenciaController --model=Competencia --api
+php artisan make:controller TaxonomyController --model=Taxonomy --api
+php artisan make:controller Resultado_aprendizajeController --model=Learning_results --api
+php artisan make:controller Perfil_egresoController --model=Graduate_profiles --api
+php artisan make:controller CompetenciaController --model=Competence --api
 
