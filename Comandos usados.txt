@@ -49,68 +49,46 @@ php artisan install:api --passport
 php artisan passport:client --personal --name="SIGRA Personal Access Client"
 //puedes elegir otro nombre como : [API Auth] ++
 - configurar -rutes.php, video-min 10->: https://www.youtube.com/watch?v=iCGZ6iRq5hg
+php artisan make:seeder UserSedeer
+
+//configurar bloqueo - roles y permisos
 
 !!!!!!!!!!!!-LISTO
 
 { Repetir la configuración por cada tabla
   - establecer atributos y restricciones de la migración (tabla)
   - crear seeder y llamarlo en databaseSeeder
-  - configurar ruta en api.php
+  - configurar ruta en api.php según rol, permiso o autenticacion
   - configurar modelo y relaciones
   - configurar controlador
-  - probar en postman
+  - probar en postman o thunder client
 
-  NOTA: manejo de nombres plurales agregando 's' al singular, ejemplo niveles => nivels
+  NOTA: manejo de nombres en ingles y plurales para las migraciones
 }
+
 php artisan make:migration create_asignaturas_table
-php artisan make:seeder AsignaturaSedeer
-php artisan make:controller AsignaturaController --model=Asignatura --api
-//yes
-
 php artisan make:migration create_programas_table
-php artisan make:seeder ProgramaSedeer
-php artisan make:controller ProgramaController --model=Programa --api
-
 php artisan make:migration create_nivels_table
-php artisan make:seeder NivelSedeer
-php artisan make:controller NivelController --model=Nivel --api
-
 php artisan make:migration create_pensums_table
-php artisan make:seeder PensumSedeer
-php artisan make:controller PensumController --model=Pensum --api
-
 php artisan make:migration create_taxonomias_table
-php artisan make:seeder TaxonomiaSedeer
-php artisan make:controller TaxonomiaController --model=Taxonomia --api
-
 php artisan make:migration create_resultado_aprendizajes_table
-php artisan make:seeder Resultado_aprendizajeSedeer
-php artisan make:controller Resultado_aprendizajeController --model=Resultado_aprendizaje --api
-
 php artisan make:migration create_perfil_egresos_table
-php artisan make:seeder Perfil_egresoSedeer
-php artisan make:controller Perfil_egresoController --model=Perfil_egreso --api
-
 php artisan make:migration create_competencias_table
+
+php artisan make:seeder AsignaturaSedeer
+php artisan make:seeder ProgramaSedeer
+php artisan make:seeder NivelSedeer
+php artisan make:seeder PensumSedeer
+php artisan make:seeder Resultado_aprendizajeSedeer
+php artisan make:seeder Perfil_egresoSedeer
 php artisan make:seeder CompetenciaSedeer
+
+php artisan make:controller AsignaturaController --model=Asignatura --api
+php artisan make:controller ProgramaController --model=Programa --api
+php artisan make:controller NivelController --model=Nivel --api
+php artisan make:controller PensumController --model=Pensum --api
+php artisan make:controller TaxonomiaController --model=Taxonomia --api
+php artisan make:controller Resultado_aprendizajeController --model=Resultado_aprendizaje --api
+php artisan make:controller Perfil_egresoController --model=Perfil_egreso --api
 php artisan make:controller CompetenciaController --model=Competencia --api
 
-////////////////////////////////////////////////////
-ng generate module app-routing --flat
-ng g m modules/home --routing
-//verificar
-ng g m modules/home --routes
-ng g c modules/home
----configurar por cada modulo y componente
-
-ng g m layouts
-ng g c layouts/header
-ng g c layouts/footer
-
-ng g m modules/admin/auth-profile --routing
-ng g c modules/admin/auth-profile
-
-ng g c modules/admin/auth-profile/login
--
-/////////////////////////////////////////////////////
-php artisan install:api --passport
