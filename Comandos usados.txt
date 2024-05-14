@@ -38,6 +38,7 @@ composer create-project laravel/laravel:^11.0 Api_Sigra
 - configurar .env --database
 
 { Usar según el caso o después de crear cada tabla
+  php artisan migrate:fresh --seed
   php artisan migrate
   php artisan migrate:refresh
   php artisan db:seed
@@ -68,7 +69,7 @@ php artisan make:seeder UserSedeer
 
 php artisan make:migration create_subjects_table
 php artisan make:migration create_programs_table
-php artisan make:migration create_Taxonomys_table ///////////////////////
+php artisan make:migration create_taxonomies_table ///////////////////////
 php artisan make:migration create_levels_table
 php artisan make:migration create_pensums_table
 php artisan make:migration create_learning_results_table
@@ -79,7 +80,7 @@ php artisan make:seeder SubjectSedeer
 php artisan make:seeder ProgramSedeer
 php artisan make:seeder LevelSedeer
 php artisan make:seeder PensumSedeer
-php artisan make:seeder TaxonomySedeer
+php artisan make:seeder TaxonomieSedeer
 php artisan make:seeder LearningResultSedeer
 php artisan make:seeder GraduateProfileSedeer
 php artisan make:seeder CompetenceSedeer
@@ -88,7 +89,7 @@ php artisan make:controller SubjectController --model=Subject --api
 php artisan make:controller ProgramController --model=Program --api
 php artisan make:controller LevelController --model=Level --api
 php artisan make:controller PensumController --model=Pensum --api
-php artisan make:controller TaxonomyController --model=Taxonomy --api
+php artisan make:controller TaxonomieController --model=Taxonomie --api
 php artisan make:controller LearningResultController --model=LearningResult --api
 php artisan make:controller GraduateProfileController --model=GraduateProfile --api
 php artisan make:controller CompetenceController --model=Competence --api

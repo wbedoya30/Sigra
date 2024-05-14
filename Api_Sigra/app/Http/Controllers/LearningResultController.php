@@ -3,100 +3,101 @@
 namespace App\Http\Controllers;
 
 use App\Models\LearningResult;
-use Exception;
 use Illuminate\Http\Request;
 
 class LearningResultController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index(){
-        //
-        return response()->json([
-            'data'=>LearningResult::all(),
-            'status'=> 200,
-        ]);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request){
-        //
-        try{
-            $data = LearningResult:: create($request->all());
-            return response()->json( [
-                'data' => $data,
-                'status'=> 200,
-            ]);
-        }
-        catch(Exception $err){
-            return response()->json( [
-                'error' => $err->getMessage(),
-                'status'=> 500,
-            ]);
+    public function index()
+    {
+        try {
+            $learningResults = LearningResult::paginate(10);
+            return response()->json([
+                'learning_results' => $learningResults,
+            ], 200);
+        } catch (\Exception $err) {
+            return response()->json([
+                'message' => $err->getMessage(),
+                'error' => 'No se pudieron obtener los resultados de aprendizaje.',
+            ], 500);
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
+    public function store(Request $request)
+    {
+        try {
+            $validatedData = $request->validate([
+                "definition" => "required|string|unique:learning_results,definition",
+                "subject_id" => "required|exists:subjects,id",
+                "level_id" => "required|exists:levels,id",
+                //manejo de unico para 2 campos
+            ]);
 
-     //revisar si pasar un objeto(Subject $subject) o un id
-    public function show($id){
-        try{
-            return response()->json( [
-                'data'=>LearningResult::find($id),
-                'status'=> 200,
-            ]);
-        }
-        catch(Exception $err){
-            return response()->json( [
-                'error' => $err->getMessage(),
-                'status'=> 500,
-            ]);
+            $learningResult = LearningResult::create($validatedData);
+
+            return response()->json([
+                'message' => 'Resultado de aprendizaje creado con éxito.',
+                'learning_result' => $learningResult,
+            ], 201);
+        } catch (\Exception $err) {
+            return response()->json([
+                'message' => $err->getMessage(),
+                'error' => 'Ha ocurrido un error inesperado. Por favor, inténtalo nuevamente más tarde.',
+            ], 500);
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request,$id){
-        //
-        try{
-            $data = LearningResult::findOrFail($id);
-            $data -> update($request->all());
-            return response()->json( [
-                'data' => $data,
-                'status'=> 200,
-            ]);
-        }
-        catch(Exception $err){
-            return response()->json( [
-                'error' => $err->getMessage(),
-                'status'=> 500,
-            ]);
+    public function show($id)
+    {
+        try {
+            $learningResult = LearningResult::findOrFail($id);
+            return response()->json([
+                'learning_result' => $learningResult,
+            ], 200);
+        } catch (\Exception $err) {
+            return response()->json([
+                'message' => $err->getMessage(),
+                'error' => 'Resultado de aprendizaje no encontrado.',
+            ], 404);
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id){
-        try{
-            $data = LearningResult::findOrFail($id);
-            $data -> delete();
-            return response()->json( [
-                'data' => $id,
-                'status'=> 200,
+    public function update(Request $request, $id)
+    {
+        try {
+            $learningResult = LearningResult::findOrFail($id);
+            $validatedData = $request->validate([
+                'definition' => 'nullable|string|unique:learning_results,definition',
+                'subject_id' => 'nullable|exists:subjects,id',
+                'level_id' => 'nullable|exists:levels,id',
             ]);
+
+            $learningResult->update($validatedData);
+
+            return response()->json([
+                'message' => 'Resultado de aprendizaje actualizado exitosamente.',
+                'learning_result' => $learningResult,
+            ], 200);
+        } catch (\Exception $err) {
+            return response()->json([
+                'message' => $err->getMessage(),
+                'error' => 'Error al actualizar el resultado de aprendizaje.',
+            ], 500);
         }
-        catch(Exception $err){
-            return response()->json( [
-                'error' => $err->getMessage(),
-                'status'=> 500,
-            ]);
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $learningResult = LearningResult::findOrFail($id);
+            $learningResult->delete();
+            return response()->json([
+                'message' => 'El resultado de aprendizaje ha sido eliminado.',
+            ], 200);
+        } catch (\Exception $err) {
+            return response()->json([
+                'message' => $err->getMessage(),
+                'error' => 'Error al eliminar el resultado de aprendizaje.',
+            ], 500);
         }
     }
 }

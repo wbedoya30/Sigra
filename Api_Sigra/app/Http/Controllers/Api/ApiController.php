@@ -6,289 +6,209 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 
 class ApiController extends Controller
 {
-    //LOGIN OK
-    public function login(Request $request){
-        try{
-            $validator = Validator::make($request->all(),[
-                "email"=>"required|email",
-                "password"=>"required"
+    public function login(Request $request)
+    {
+        try {
+            $validatedData = $request->validate([
+                "email" => "required|email",
+                "password" => "required"
             ]);
-            if($validator->fails()){
-                return response()->json($validator->errors(), 422);
-            }
-            //buscar usuario
-            $user = User::where("email",$request->email)->first();
-            if(!empty($user)){
-                if($user->status==true){
-                    if(Hash::check($request->password,$user->password)){
-                        // Restablecer los intentos fallidos después de un inicio de sesión exitoso
+
+            $user = User::where("email", $request->email)->first();
+
+            if (!empty($user)) {
+                if ($user->status == true) {
+                    if (Hash::check($request->password, $user->password)) {
                         $user->update(['failed_attempts' => 0]);
-
-                        $token=$user->createToken("token")->accessToken;
+                        $token = $user->createToken("token")->accessToken;
                         return response()->json([
-                            "status"=>true,
-                            "message"=>"Login exitoso",
-                            "user"=>$user,
-                            "token"=>$token,
-                        ]);
-                    }else{
-                        // Incrementar los intentos fallidos
-                        $user->increment('failed_attempts');
-                        // Verificar si se alcanzó el máximo de intentos fallidos permitidos
-                        $maxFailedAttempts = 5; // Valor configurable
-                        if ($user->failed_attempts >= $maxFailedAttempts) {
-                            // Bloquear la cuenta del usuario
-                            $user->update(['status' => false]);
-                            return response()->json([
-                                "status"=>false,
-                                "message" => "Su cuenta ha sido bloqueada debido a múltiples intentos fallidos de inicio de sesión. Comuníquese con el administrador.",
-                            ]);
-                        }{
-                            return response()->json([
-                                "status"=>false,
-                                "message" => "Contraseña incorrecta. Te quedan " . $maxFailedAttempts - $user->failed_attempts . " intentos antes de que tu cuenta sea bloqueada."
-                            ]);
-                        }
+                            "message" => "Login exitoso.",
+                            "user" => $user,
+                            "token" => $token,
+                            "token_type" => "Bearer",
+                            "expires_at" => now()->addHours(1),
+                        ], 200);
+                    } else {
+                        $this->handleFailedLogin($user);
+                        return $this->sendFailedLoginResponse($user);
                     }
-                }else{
-                        return response()->json([
-                            "status"=>false,
-                            "message"=>"Su cuenta está inactiva, Comuníquese con el administrador",
-                        ]);
+                } else {
+                    return response()->json([
+                        "message" => "Su cuenta está inactiva, Comuníquese con el administrador.",
+                    ], 403);
                 }
-            }else{
+            } else {
                 return response()->json([
-                    "status"=>false,
-                    "message"=>"Usuario no encontrado",
-                ]);
+                    "message" => "Usuario no encontrado.",
+                ], 401);
             }
-        }catch(\Exception $e){
+        } catch (\Exception $err) {
             return response()->json([
-                "status"=>false,
-                "message"=>"Error al iniciar sesión",
-                "error"=>$e->getMessage(),
+                "message" => $err->getMessage(),
+                "error" => "Ha ocurrido un error inesperado. Por favor, inténtalo nuevamente más tarde.",
+            ], 500);
+        }
+    }
+
+    public function profile(Request $request)
+    {
+        try {
+            return response()->json([
+                "message" => "Perfil de usuario.",
+                "user" => $request->user(),
+            ], 200);
+        } catch (\Exception $err) {
+            return response()->json([
+                "message" => $err->getMessage(),
+                "error" => "Error al obtener perfil de usuario.",
+            ], 500);
+        }
+    }
+
+    public function logout(Request $request)
+    {
+        try {
+            $request->user()->token()->revoke();
+            return response()->json([
+                "message" => "Logout exitoso",
+            ], 200);
+        } catch (\Exception $err) {
+            return response()->json([
+                "message" => $err->getMessage(),
+                "error" => "Error al cerrar sesión",
+            ], 500);
+        }
+    }
+
+    public function index()
+    {
+        try {
+            $users = User::paginate(10); // Usar paginación en lugar de cargar todos los usuarios
+            return response()->json([
+                'users' => $users,
+            ], 200);
+        } catch (\Exception $err) {
+            return response()->json([
+                'message' => $err->getMessage(),
+                'error' => 'Error al obtener los usuarios.',
+            ], 500);
+        }
+    }
+
+    public function store(Request $request)
+    {
+        try {
+            $validatedData = $request->validate([
+                "name" => "required|string|max:255",
+                "email" => "required|string|email|unique:users",
+                "password" => "required|min:8",
+                "role" => "required|string",
             ]);
+
+            $validatedData['password'] = bcrypt($validatedData['password']);
+
+            $user = User::create($validatedData);
+
+            return response()->json([
+                'message' => 'Usuario creado con éxito.',
+                'user' => $user,
+            ], 201);
+        } catch (\Exception $err) {
+            return response()->json([
+                'message' => $err->getMessage(),
+                'error' => 'Ha ocurrido un error inesperado. Por favor, inténtalo nuevamente más tarde.',
+            ], 500);
+        }
+    }
+
+    public function show($id)
+    {
+        try {
+            $user = User::findOrFail($id);
+            return response()->json([
+                'user' => $user,
+            ], 200);
+        } catch (\Exception $err) {
+            return response()->json([
+                'message' => $err->getMessage(),
+                'error' => 'Usuario no encontrado.',
+            ], 404);
+        }
+    }
+
+    public function update(Request $request, $id)
+    {
+        try {
+            $user = User::findOrFail($id);
+            $validatedData = $request->validate([
+                'name' => 'nullable|string|max:255',
+                'email' => 'nullable|email|unique:users,email,' . $user->id,
+                'password' => 'nullable|string|min:8',
+                'role' => 'nullable|in:1,user,2,docente,3,coordinador,4,admin,5,super-admin',
+                'status' => 'nullable|boolean',
+            ]);
+
+            if ($request->filled('password')) {
+                $validatedData['password'] = bcrypt($validatedData['password']);
+            }
+
+            $user->update($validatedData);
+
+            return response()->json([
+                'message' => 'Usuario actualizado exitosamente.',
+                'user' => $user,
+            ], 200);
+        } catch (\Exception $err) {
+            return response()->json([
+                'message' => $err->getMessage(),
+                'error' => 'No se pudo actualizar el usuario.',
+            ], 500);
+        }
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $user = User::findOrFail($id);
+            $user->update(['status' => false]);
+            return response()->json([
+                'message' => 'El usuario ha pasado a estar inactivo.',
+            ], 200);
+        } catch (\Exception $err) {
+            return response()->json([
+                'message' => $err->getMessage(),
+                'error' => 'Error al inactivar el usuario.',
+            ], 500);
+        }
+    }
+
+    // Métodos adicionales
+
+    protected function handleFailedLogin($user)
+    {
+        $user->increment('failed_attempts');
+        $maxFailedAttempts = 5;
+
+        if ($user->failed_attempts >= $maxFailedAttempts) {
+            $user->update(['status' => false]);
+        }
+    }
+
+    protected function sendFailedLoginResponse($user)
+    {
+        $maxFailedAttempts = 5;
+
+        if ($user->failed_attempts >= $maxFailedAttempts) {
+            return response()->json([
+                "message" => "Su cuenta ha sido bloqueada debido a múltiples intentos fallidos de inicio de sesión. Comuníquese con el administrador.",
+            ], 429);
         }
 
-    }
-    public function register(Request $request){
-        //Validación
-    }
-    public function logout(Request $request){
-        //
-    }
-
-
-    /**
-     * Display a listing of the resource.
-     */
-    public function index(){
-        //
         return response()->json([
-            'data'=>User::all(),
-            'status'=> 200,
-        ]);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request){
-        //
-        try{
-            $data = User:: create($request->all());
-            return response()->json( [
-                'data' => $data,
-                'status'=> 200,
-            ]);
-        }
-        catch(\Exception $err){
-            return response()->json( [
-                'error' => $err->getMessage(),
-                'status'=> 500,
-            ]);
-        }
-    }
-
-    /**
-     * Display the specified resource.
-     */
-
-     //revisar si pasar un objeto(Subject $subject) o un id
-    public function show($id){
-        try{
-            return response()->json( [
-                'data'=>User::find($id),
-                'status'=> 200,
-            ]);
-        }
-        catch(\Exception $err){
-            return response()->json( [
-                'error' => $err->getMessage(),
-                'status'=> 500,
-            ]);
-        }
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request,$id){
-        //
-        try{
-            $data = User::findOrFail($id);
-            $data -> update($request->all());
-            return response()->json( [
-                'data' => $data,
-                'status'=> 200,
-            ]);
-        }
-        catch(\Exception $err){
-            return response()->json( [
-                'error' => $err->getMessage(),
-                'status'=> 500,
-            ]);
-        }
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id){
-        try{
-            $data = User::findOrFail($id);
-            $data -> delete();
-            return response()->json( [
-                'data' => $id,
-                'status'=> 200,
-            ]);
-        }
-        catch(\Exception $err){
-            return response()->json( [
-                'error' => $err->getMessage(),
-                'status'=> 500,
-            ]);
-        }
+            "message" => "Contraseña incorrecta. Te quedan " . ($maxFailedAttempts - $user->failed_attempts) . " intentos antes de que tu cuenta sea bloqueada."
+        ], 401);
     }
 }
-/////////////////////////////////////////////////////////////7 ELIMINAR
-//REGISTRO OK
-// public function register(Request $request){
-//     try{
-//         $validator = Validator::make($request->all(),[
-//             "name"=>"required|string",
-//             "email"=>"required|string|email",
-//             "password"=>"required|min:8"
-//             //revisar tipo de dato del status
-//         ]);
-//         if($validator->fails()){
-//             return response()->json($validator->errors(), 400);
-//         }
-//         // Verificar si el usuario ya existe
-//         $existingUser = User::where('email', $request->email)->first();
-//         if (!empty($existingUser)) {
-//             return response()->json([
-//                 'status' => false,
-//                 'message' => 'El usuario ya existe',
-//             ], 409);
-//         }else{
-//             $user = User::create([
-//                 "name"=>$request->name,
-//                 "email"=>$request->email,
-//                 "password"=>bcrypt($request->password),
-//                 "status"=>$request->get('status', 'active'),
-//                 "role"=>$request->get('role', 'docente'),
-//                 // "status"=>$request->status || 'active', //se pone numerico
-//             ]);
-//             return response()->json([
-//                 "message"=>"Usuario Creado con éxito",
-//                 "user"=> $user,
-//             ], 201);
-//         }
-//     }catch(\Exception $e){
-//         return response()->json([
-//             "status"=>false,
-//             "message"=>"Error al registrar usuario",
-//             "error"=>$e->getMessage(),
-//         ]);
-//     }
-
-// }
-
-// //LOGOUT
-// public function logout(Request $request){
-//     try{
-//         $request->user()->token()->revoke();
-//         return response()->json([
-//             "status"=>true,
-//             "message"=>"Logout exitoso",
-//         ]);
-//     }catch(\Exception $e){
-//         return response()->json([
-//             "status"=>false,
-//             "message"=>"Error al cerrar sesión",
-//             "error"=>$e->getMessage(),
-//         ]);
-//     }
-
-// }
-// //USUARIO AUTENTICADO
-// public function profile(Request $request){
-//     try{
-//         return response()->json([
-//             "status"=>true,
-//             "message"=>"Usuario autenticado",
-//             "user"=>$request->user(),
-//         ]);
-//     }catch(\Exception $e){
-//         return response()->json([
-//             "status"=>false,
-//             "message"=>"Error al obtener perfil de usuario",
-//             "error"=>$e->getMessage(),
-//         ]);
-//     }
-
-// }
-
-// //ALTERNATIVAS
-// public function profile2(){
-//     try{
-//         $userData = auth()->user();
-//         return response()->json([
-//             "status"=>true,
-//             "message"=>"Perfil de usuario",
-//             "user"=>$userData,
-//             // "id" => auth()->user()->id,
-//         ]);
-//     }catch(\Exception $e){
-//         return response()->json([
-//             "status"=>false,
-//             "message"=>"Error al obtener perfil de usuario",
-//             "error"=>$e->getMessage(),
-//         ]);
-//     }
-
-// }
-// public function logout2(){
-//     try{
-//         $token = auth()->user()->token()->revoke();
-//         return response()->json([
-//             "status"=>true,
-//             "message"=>"Logout exitoso",
-//             "data"=>[
-//                 "token"=>$token
-//             ]
-//         ]);
-//     }catch(\Exception $e){
-//         return response()->json([
-//             "status"=>false,
-//             "message"=>"Error al cerrar sesión",
-//             "error"=>$e->getMessage(),
-//         ]);
-//     }
-
-// }

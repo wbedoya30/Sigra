@@ -2,11 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
+
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Laravel\Passport\Client;
-use Illuminate\Support\Str; // Add this line to import the Str class
 
 class DatabaseSeeder extends Seeder
 {
@@ -26,7 +24,6 @@ class DatabaseSeeder extends Seeder
         DB::table('pensums')->delete();
         DB::table('learning_results')->delete();
         DB::table('levels')->delete();
-        DB::table('taxonomys')->delete();
         DB::table('subjects')->delete();
         DB::table('graduate_profiles')->delete();
         DB::table('competencies')->delete();
@@ -36,11 +33,10 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSedeer::class);
         $this->call(SubjectSedeer::class);
         $this->call(ProgramSedeer::class);
-        $this->call(TaxonomySedeer::class);
         $this->call(LevelSedeer::class);
         $this->call(PensumSedeer::class);
         $this->call(LearningResultSedeer::class);
         $this->call(GraduateProfileSedeer::class);
-        $this->call(CompetenceSedeer::class);
+        $this->call(CompetencieSedeer::class);
     }
 }

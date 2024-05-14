@@ -3,100 +3,98 @@
 namespace App\Http\Controllers;
 
 use App\Models\Level;
-use Exception;
 use Illuminate\Http\Request;
 
 class LevelController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index(){
-        //
-        return response()->json([
-            'data'=>Level::all(),
-            'status'=> 200,
-        ]);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request){
-        //
-        try{
-            $data = Level:: create($request->all());
-            return response()->json( [
-                'data' => $data,
-                'status'=> 200,
-            ]);
-        }
-        catch(Exception $err){
-            return response()->json( [
-                'error' => $err->getMessage(),
-                'status'=> 500,
-            ]);
+    public function index()
+    {
+        try {
+            $levels = Level::paginate(10);
+            return response()->json([
+                'levels' => $levels,
+            ], 200);
+        } catch (\Exception $err) {
+            return response()->json([
+                'message' => $err->getMessage(),
+                'error' => 'No se pudieron obtener los niveles.',
+            ], 500);
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
+    public function store(Request $request)
+    {
+        try {
+            $validatedData = $request->validate([
+                "verb" => "required|string|unique:levels,verb",
+                "taxonomy_level" => "required|in:1,recordar, 2,entender,3,aplicar,4,analizar,5, evaluar,6,crear",
+            ]);
 
-     //revisar si pasar un objeto(Subject $subject) o un id
-    public function show($id){
-        try{
-            return response()->json( [
-                'data'=>Level::find($id),
-                'status'=> 200,
-            ]);
-        }
-        catch(Exception $err){
-            return response()->json( [
-                'error' => $err->getMessage(),
-                'status'=> 500,
-            ]);
+            $level = Level::create($validatedData);
+
+            return response()->json([
+                'message' => 'Nivel creado con éxito.',
+                'level' => $level,
+            ], 201);
+        } catch (\Exception $err) {
+            return response()->json([
+                'message' => $err->getMessage(),
+                'error' => 'Ha ocurrido un error inesperado. Por favor, inténtalo nuevamente más tarde.',
+            ], 500);
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request,$id){
-        //
-        try{
-            $data = Level::findOrFail($id);
-            $data -> update($request->all());
-            return response()->json( [
-                'data' => $data,
-                'status'=> 200,
-            ]);
-        }
-        catch(Exception $err){
-            return response()->json( [
-                'error' => $err->getMessage(),
-                'status'=> 500,
-            ]);
+    public function show($id)
+    {
+        try {
+            $level = Level::findOrFail($id);
+            return response()->json([
+                'level' => $level,
+            ], 200);
+        } catch (\Exception $err) {
+            return response()->json([
+                'message' => $err->getMessage(),
+                'error' => 'Nivel no encontrado.',
+            ], 404);
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id){
-        try{
-            $data = Level::findOrFail($id);
-            $data -> delete();
-            return response()->json( [
-                'data' => $id,
-                'status'=> 200,
+    public function update(Request $request, $id)
+    {
+        try {
+            $level = Level::findOrFail($id);
+            $validatedData = $request->validate([
+                'verb' => 'nullable|string|unique:levels,verb,',
+                'taxonomy_level' => 'nullable|in:1,recordar,2,entender,3,aplicar,4,analizar,5,evaluar,6,crear',
             ]);
+
+            $level->update($validatedData);
+
+            return response()->json([
+                'message' => 'Nivel actualizado exitosamente.',
+                'level' => $level,
+            ], 200);
+        } catch (\Exception $err) {
+            return response()->json([
+                'message' => $err->getMessage(),
+                'error' => 'Error al actualizar el nivel.',
+            ], 500);
         }
-        catch(Exception $err){
-            return response()->json( [
-                'error' => $err->getMessage(),
-                'status'=> 500,
-            ]);
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $level = Level::findOrFail($id);
+            $level->delete();
+            return response()->json([
+                'message' => 'El nivel ha sido eliminado.',
+            ], 200);
+        } catch (\Exception $err) {
+            return response()->json([
+                'message' => $err->getMessage(),
+                'error' => 'Error al eliminar el nivel.',
+            ], 500);
         }
     }
 }

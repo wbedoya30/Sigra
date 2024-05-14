@@ -14,9 +14,8 @@ return new class extends Migration
         Schema::create('levels', function (Blueprint $table) {
             $table->id();
             $table->string('verb');
-            $table->bigInteger('taxonomy_bloom_id')->unsigned();
-            $table->foreign('taxonomy_bloom_id')->references('id')->on('taxonomys');
-            $table->unique(['verb', 'taxonomy_bloom_id']);
+            $table->enum('taxonomy_level', ['recordar', 'entender','aplicar', 'analizar', 'evaluar','crear']);
+            $table->unique(['verb', 'taxonomy_level']);
             $table->timestamps();
         });
     }

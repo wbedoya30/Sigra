@@ -3,100 +3,98 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pensum;
-use Exception;
 use Illuminate\Http\Request;
 
 class PensumController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index(){
-        //
-        return response()->json([
-            'data'=>Pensum::all(),
-            'status'=> 200,
-        ]);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request){
-        //
-        try{
-            $data = Pensum:: create($request->all());
-            return response()->json( [
-                'data' => $data,
-                'status'=> 200,
-            ]);
-        }
-        catch(Exception $err){
-            return response()->json( [
-                'error' => $err->getMessage(),
-                'status'=> 500,
-            ]);
+    public function index()
+    {
+        try {
+            $pensums = Pensum::paginate(10);
+            return response()->json([
+                'pensums' => $pensums,
+            ], 200);
+        } catch (\Exception $err) {
+            return response()->json([
+                'message' => $err->getMessage(),
+                'error' => 'No se pudieron obtener los pensums.',
+            ], 500);
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
+    public function store(Request $request)
+    {
+        try {
+            $validatedData = $request->validate([
+                "subject_id" => "required|exists:subjects,id",
+                "program_id" => "required|exists:programs,id",
+            ]);
 
-     //revisar si pasar un objeto(Subject $subject) o un id
-    public function show($id){
-        try{
-            return response()->json( [
-                'data'=>Pensum::find($id),
-                'status'=> 200,
-            ]);
-        }
-        catch(Exception $err){
-            return response()->json( [
-                'error' => $err->getMessage(),
-                'status'=> 500,
-            ]);
+            $pensum = Pensum::create($validatedData);
+
+            return response()->json([
+                'message' => 'pensum creado con éxito.',
+                'pensum' => $pensum,
+            ], 201);
+        } catch (\Exception $err) {
+            return response()->json([
+                'message' => $err->getMessage(),
+                'error' => 'Ha ocurrido un error inesperado. Por favor, inténtalo nuevamente más tarde.',
+            ], 500);
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request,$id){
-        //
-        try{
-            $data = Pensum::findOrFail($id);
-            $data -> update($request->all());
-            return response()->json( [
-                'data' => $data,
-                'status'=> 200,
-            ]);
-        }
-        catch(Exception $err){
-            return response()->json( [
-                'error' => $err->getMessage(),
-                'status'=> 500,
-            ]);
+    public function show($id)
+    {
+        try {
+            $pensum = Pensum::findOrFail($id);
+            return response()->json([
+                'pensum' => $pensum,
+            ], 200);
+        } catch (\Exception $err) {
+            return response()->json([
+                'message' => $err->getMessage(),
+                'error' => 'pensum no encontrado.',
+            ], 404);
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id){
-        try{
-            $data = Pensum::findOrFail($id);
-            $data -> delete();
-            return response()->json( [
-                'data' => $id,
-                'status'=> 200,
+    public function update(Request $request, $id)
+    {
+        try {
+            $pensum = Pensum::findOrFail($id);
+            $validatedData = $request->validate([
+                'subject_id' => 'nullable|exists:subjects,id',
+                'program_id' => 'nullable|exists:programs,id',
             ]);
+
+            $pensum->update($validatedData);
+
+            return response()->json([
+                'message' => 'pensum actualizado exitosamente.',
+                'pensum' => $pensum,
+            ], 200);
+        } catch (\Exception $err) {
+            return response()->json([
+                'message' => $err->getMessage(),
+                'error' => 'Error al actualizar el pensum.',
+            ], 500);
         }
-        catch(Exception $err){
-            return response()->json( [
-                'error' => $err->getMessage(),
-                'status'=> 500,
-            ]);
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $pensum = Pensum::findOrFail($id);
+            $pensum->delete();
+            return response()->json([
+                'message' => 'El pensum ha sido eliminado.',
+            ], 200);
+        } catch (\Exception $err) {
+            return response()->json([
+                'message' => $err->getMessage(),
+                'error' => 'Error al eliminar el pensum.',
+            ], 500);
         }
     }
 }

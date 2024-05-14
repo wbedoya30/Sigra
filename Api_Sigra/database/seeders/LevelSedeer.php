@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -17,7 +16,7 @@ class LevelSedeer extends Seeder
         DB::table('levels')->insert([
             [
                 'verb' => '',
-                'taxonomy_bloom_id' => 1,
+                'taxonomy_level' => 1,
             ],
         ]);
     }

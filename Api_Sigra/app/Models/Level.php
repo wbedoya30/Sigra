@@ -11,12 +11,10 @@ class Level extends Model
 
     protected $fillable = [
         'verb',
-        'taxonomy_bloom_id',
+        'taxonomy_level',
     ];
     //RELACIONES CON OTRAS TABLAS
-    public function Taxonomy(){
-        return $this->belongsTo(Taxonomy::class);
-    }
+
     public function LearningResult(){
         return $this->hasMany(LearningResult::class);
     }

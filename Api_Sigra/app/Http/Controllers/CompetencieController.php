@@ -2,22 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Program;
+use App\Models\Competencie;
 use Illuminate\Http\Request;
 
-class ProgramController extends Controller
+class CompetencieController extends Controller
 {
     public function index()
     {
         try {
-            $programs = Program::paginate(10);
+            $competencies = Competencie::paginate(10);
             return response()->json([
-                'programs' => $programs,
+                'competencies' => $competencies,
             ], 200);
         } catch (\Exception $err) {
             return response()->json([
                 'message' => $err->getMessage(),
-                'error' => 'No se pudieron obtener los programas académicos.',
+                'error' => 'No se pudieron obtener las competencias.',
             ], 500);
         }
     }
@@ -26,19 +26,18 @@ class ProgramController extends Controller
     {
         try {
             $validatedData = $request->validate([
-                "name" => "required|string|unique:programs,name|max:255",
+                'type' => 'required|in:1,general, 2,especifica',
                 "description" => "required|string",
-                "duration" => "required|string",
-                "awarded_title" => "required|string",
-                "coordinator_id" => "required|exists:users,id",
-                //configurar unico para varios campos en el mismo regisro
+                // "capabilities" => "required|string",
+                "graduate_profile_id" => "required|exists:graduate_profiles,id",
+                //manejo de unico para 2 campos
             ]);
 
-            $program = Program::create($validatedData);
+            $competencie = competencie::create($validatedData);
 
             return response()->json([
-                'message' => 'Programa creado con éxito.',
-                'program' => $program,
+                'message' => 'Competencia creada con éxito.',
+                'competencie' => $competencie,
             ], 201);
         } catch (\Exception $err) {
             return response()->json([
@@ -51,14 +50,14 @@ class ProgramController extends Controller
     public function show($id)
     {
         try {
-            $program = Program::findOrFail($id);
+            $competencie = competencie::findOrFail($id);
             return response()->json([
-                'program' => $program,
+                'competencie' => $competencie,
             ], 200);
         } catch (\Exception $err) {
             return response()->json([
                 'message' => $err->getMessage(),
-                'error' => 'Programa no encontrado.',
+                'error' => 'Competencia no encontrada.',
             ], 404);
         }
     }
@@ -66,25 +65,24 @@ class ProgramController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $program = Program::findOrFail($id);
+            $competencie = competencie::findOrFail($id);
             $validatedData = $request->validate([
-                'name' => 'nullable|string|max:255',
+                'type' => 'nullable|in:1,general, 2,especifica',
                 'description' => 'nullable|string',
-                'duration' => 'nullable|string',
-                'awarded_title' => 'nullable|string',
-                'coordinator_id' => 'nullable|exists:users,id',
+                // 'capabilities' => 'nullable|string',
+                'graduate_profile_id' => 'nullable|exists:graduate_profiles,id',
             ]);
 
-            $program->update($validatedData);
+            $competencie->update($validatedData);
 
             return response()->json([
-                'message' => 'Programa actualizado exitosamente.',
-                'program' => $program,
+                'message' => 'Competencia actualizada exitosamente.',
+                'competencie' => $competencie,
             ], 200);
         } catch (\Exception $err) {
             return response()->json([
                 'message' => $err->getMessage(),
-                'error' => 'Error al actualizar el programa.',
+                'error' => 'Error al actualizar la competencia.',
             ], 500);
         }
     }
@@ -92,15 +90,15 @@ class ProgramController extends Controller
     public function destroy($id)
     {
         try {
-            $program = Program::findOrFail($id);
-            $program->delete();
+            $competencie = competencie::findOrFail($id);
+            $competencie->delete();
             return response()->json([
-                'message' => 'El programa ha sido eliminado.',
+                'message' => 'La competencia ha sido eliminada.',
             ], 200);
         } catch (\Exception $err) {
             return response()->json([
                 'message' => $err->getMessage(),
-                'error' => 'Error al eliminar el programa.',
+                'error' => 'Error al eliminar la competencia.',
             ], 500);
         }
     }

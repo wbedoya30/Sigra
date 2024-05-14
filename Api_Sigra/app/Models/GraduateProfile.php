@@ -18,7 +18,7 @@ class GraduateProfile extends Model
     public function Program(){
         return $this->belongsTo(Program::class);
     }
-    public function Competence(){
-        return $this->hasMany(Competence::class);
+    public function Competencie(){
+        return $this->hasMany(Competencie::class);
     }
 }

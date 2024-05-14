@@ -2,11 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class CompetenceSedeer extends Seeder
+class CompetencieSedeer extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,7 +15,7 @@ class CompetenceSedeer extends Seeder
         //
         DB::table('competencies')->insert([
             [
-                'type' => '',
+                'type' => 1,
                 'description' => '',
                 // 'capabilities' => '',
                 'graduate_profile_id' => 1,

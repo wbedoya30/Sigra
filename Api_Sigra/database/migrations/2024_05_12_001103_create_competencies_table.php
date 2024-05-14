@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('competencies', function (Blueprint $table) {
             $table->id();
-            $table->string('type');
+            $table->enum('type', ['general', 'especifica'])->default('general');
             $table->text('description')->nullable();
             // $table->text('capabilities');
             $table->bigInteger('graduate_profile_id')->unsigned();

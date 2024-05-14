@@ -1,12 +1,18 @@
 {
     "cSpell.words": [
         "artisan",
+        "awarded",
         "bloom",
         "Blueprint",
+        "competence",
         "Competence",
+        "Competencie",
         "competencies",
         "composer",
         "controller",
+        "coordinator",
+        "credits",
+        "Deletes",
         "drop",
         "Eloquent",
         "Factories",
@@ -19,6 +25,7 @@
         "learning",
         "Learning",
         "migrate",
+        "Notifiable",
         "pages",
         "passport",
         "Pensum",
@@ -35,8 +42,9 @@
         "style",
         "Subject",
         "subjects",
+        "taxonomie",
         "taxonomy",
-        "taxonomys",
+        "validated",
         "verb"
     ]
 }
