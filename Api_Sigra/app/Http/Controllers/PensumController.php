@@ -64,7 +64,7 @@ class PensumController extends Controller
         try {
             $pensum = Pensum::findOrFail($id);
             $validatedData = $request->validate([
-                'subject_id' => 'nullable|exists:subjects,id',
+                'subject_id' => 'nullable|exists:subjects,id' .$pensum->id,
                 'program_id' => 'nullable|exists:programs,id',
             ]);
 

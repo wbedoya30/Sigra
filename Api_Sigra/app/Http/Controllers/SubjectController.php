@@ -66,7 +66,7 @@ class SubjectController extends Controller
         try {
             $subject = Subject::findOrFail($id);
             $validatedData = $request->validate([
-                'name' => 'nullable|string|max:255',
+                'name' => 'nullable|string|max:255' .$subject->id,
                 'code' => 'nullable|string|max:50',
                 'credits' => 'nullable|string',
                 'description' => 'nullable|string',

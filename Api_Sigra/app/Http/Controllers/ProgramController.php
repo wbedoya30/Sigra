@@ -68,7 +68,7 @@ class ProgramController extends Controller
         try {
             $program = Program::findOrFail($id);
             $validatedData = $request->validate([
-                'name' => 'nullable|string|max:255',
+                'name' => 'nullable|string|max:255' .$program->id,
                 'description' => 'nullable|string',
                 'duration' => 'nullable|string',
                 'awarded_title' => 'nullable|string',

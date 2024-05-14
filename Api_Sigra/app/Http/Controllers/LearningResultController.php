@@ -66,7 +66,7 @@ class LearningResultController extends Controller
         try {
             $learningResult = LearningResult::findOrFail($id);
             $validatedData = $request->validate([
-                'definition' => 'nullable|string|unique:learning_results,definition',
+                'definition' => 'nullable|string|unique:learning_results,definition' .$learningResult->id,
                 'subject_id' => 'nullable|exists:subjects,id',
                 'level_id' => 'nullable|exists:levels,id',
             ]);

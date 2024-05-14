@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Laravel\Passport\ClientRepository as PassportClientRepository;
 
 class UserSedeer extends Seeder
 {
@@ -12,6 +13,11 @@ class UserSedeer extends Seeder
      */
     public function run(): void
     {
+        $clientRepository = new PassportClientRepository();
+        $client = $clientRepository->createPersonalAccessClient(
+            null, 'SIGRA Personal Access Client', 'http://your-callback-url'
+        );
+
         //
         DB::table('users')->insert([
             [

@@ -64,7 +64,7 @@ class LevelController extends Controller
         try {
             $level = Level::findOrFail($id);
             $validatedData = $request->validate([
-                'verb' => 'nullable|string|unique:levels,verb,',
+                'verb' => 'nullable|string|unique:levels,verb,' .$level->id,
                 'taxonomy_level' => 'nullable|in:1,recordar,2,entender,3,aplicar,4,analizar,5,evaluar,6,crear',
             ]);
 
