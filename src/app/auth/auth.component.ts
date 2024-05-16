@@ -3,7 +3,13 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-auth',
   standalone: true,
-  imports: [],
+  imports: [
+     // CommonModule,
+    // FormsModule,
+    // HttpClientModule,
+    // ReactiveFormsModule,
+    // RouterModule
+  ],
   template: `
     <p>
       auth works!

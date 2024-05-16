@@ -1,1 +1,24 @@
-<p>login works!</p>
+<div class="container-login">
+    <div class="wrap-login">
+        <form class="login-form validate-form" id="formLogin" action="" method="post">
+            <span class="login-form-title">LOGIN</span>
+
+            <div class="wrap-input100" data-validate = "Usuario incorrecto">
+                <input class="input100" type="email" [(ngModel)]="email"  name="email" placeholder="Correo Electrónico">
+                <span class="focus-efecto"></span>
+            </div>
+
+            <div class="wrap-input100" data-validate="Password incorrecto">
+                <input class="input100" type="password" [(ngModel)]="password" name="password" placeholder="Contraseña">
+                <span class="focus-efecto"></span>
+            </div>
+
+            <div class="container-login-form-btn">
+                <div class="wrap-login-form-btn">
+                    <div class="login-form-bgbtn"></div>
+                    <button type="submit" (click)="login()" class="login-form-btn">Entrar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+  </div>

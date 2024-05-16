@@ -1,1 +1,48 @@
-<p>header works!</p>
+<header class="navbar navbar-expand-lg fixed-top navbar-custom navbar-light sticky">
+    <div class="container">
+      <a class="navbar-brand" routerLink="/home">
+        <img src="assets/images/logo.png" height="30" alt="Logo">
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="mdi mdi-menu"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav navbar-nav-link mx-auto">
+            <li class="nav-item active"> <!-- active : mantener cl color del dento activo -->
+                <a class="nav-link" routerLink="/home">Inicio</a>
+            </li>
+             <li class="nav-item">
+                <a class="nav-link" routerLink="/programs">Programas Académicos</a>
+            </li>
+            <!--<li class="nav-item">
+                <a class="nav-link" href="#resume">Resume</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#projects">Projects</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#news">Blog</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#contact">Contact</a>
+            </li> -->
+        </ul>
+
+        <!-- <div class="mt-4 pt-2">
+            <a href="javascript:void(0)" class="btn btn-custom rounded mb-2 mr-2">Hire Me</a>
+            <a href="javascript:void(0)" class="btn btn-custom-outline rounded mb-2">Download CV <i class="mdi mdi-download"></i></a>
+        </div> -->
+        <span *ngIf="!user">
+          <a routerLink="/auth/login" class=" btn btn-custom-outline ">Iniciar Sesión
+            <i class="mdi mdi-login"></i>
+
+          </a>
+        </span>
+        <span *ngIf="user">
+          <a routerLink="/admin" class=" btn btn-custom-outline ">Área personal
+            <i class="mdi mdi-account"></i>
+          </a>
+        </span>
+      </div>
+    </div>
+  </header>

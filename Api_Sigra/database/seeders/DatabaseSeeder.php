@@ -21,22 +21,22 @@ class DatabaseSeeder extends Seeder
         // ]);
 
 
-        DB::table('pensums')->delete();
-        DB::table('learning_results')->delete();
-        DB::table('levels')->delete();
-        DB::table('subjects')->delete();
-        DB::table('graduate_profiles')->delete();
-        DB::table('competencies')->delete();
+        //DB::table('pensums')->delete();
+        //DB::table('learning_results')->delete();
+        //DB::table('levels')->delete();
+        //DB::table('subjects')->delete();
+        //DB::table('graduate_profiles')->delete();
+        //DB::table('competencies')->delete();
         DB::table('programs')->delete();
         DB::table('users')->delete();
 
         $this->call(UserSedeer::class);
-        $this->call(SubjectSedeer::class);
+        //$this->call(SubjectSedeer::class);
         $this->call(ProgramSedeer::class);
-        $this->call(LevelSedeer::class);
-        $this->call(PensumSedeer::class);
-        $this->call(LearningResultSedeer::class);
-        $this->call(GraduateProfileSedeer::class);
-        $this->call(CompetencieSedeer::class);
+        // $this->call(LevelSedeer::class);
+        // $this->call(PensumSedeer::class);
+        // $this->call(LearningResultSedeer::class);
+        // $this->call(GraduateProfileSedeer::class);
+        // $this->call(CompetencieSedeer::class);
     }
 }

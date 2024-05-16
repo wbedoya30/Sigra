@@ -54,7 +54,6 @@ php artisan make:seeder UserSedeer
 
 //configurar bloqueo - roles y permisos
 
-!!!!!!!!!!!!-LISTO
 
 { Repetir la configuración por cada tabla
   - establecer atributos y restricciones de la migración (tabla)

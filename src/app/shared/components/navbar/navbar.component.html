@@ -1,1 +1,5 @@
-<p>navbar works!</p>
+<p *ngIf="user">Bienvenido! {{user.name}}</p>
+<p *ngIf="!user">Bienvenido!</p>
+<a href="#" *ngIf="user" onclick="return false;" (click)="logout()">
+ Cerrar Sesión
+</a>

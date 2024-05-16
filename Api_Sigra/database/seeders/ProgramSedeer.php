@@ -19,7 +19,8 @@ class ProgramSedeer extends Seeder
                 'description' => '',
                 'duration' => '',
                 'awarded_title' => '',
-                'coordinator_id' => 1,
+                'image'=> '',
+                // 'coordinator_id' => 1,
 
             ],
         ]);

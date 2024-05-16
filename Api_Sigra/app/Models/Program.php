@@ -14,7 +14,8 @@ class Program extends Model
         'description',
         'duration',
         'awarded_title',
-        'coordinator_id',
+        'image',
+        // 'coordinator_id', //se manda de manera interna
 
     ];
     //RELACIONES CON OTRAS TABLAS

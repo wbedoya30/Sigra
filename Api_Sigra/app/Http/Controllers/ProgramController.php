@@ -30,6 +30,7 @@ class ProgramController extends Controller
                 "description" => "required|string",
                 "duration" => "required|string",
                 "awarded_title" => "required|string",
+                "image"=> "nullable|string",
                 "coordinator_id" => "required|exists:users,id",
                 //configurar unico para varios campos en el mismo regisro
             ]);
@@ -72,6 +73,7 @@ class ProgramController extends Controller
                 'description' => 'nullable|string',
                 'duration' => 'nullable|string',
                 'awarded_title' => 'nullable|string',
+                "image"=> "nullable|string",
                 'coordinator_id' => 'nullable|exists:users,id',
             ]);
 

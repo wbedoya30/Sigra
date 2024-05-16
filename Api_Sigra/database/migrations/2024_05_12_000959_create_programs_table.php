@@ -14,11 +14,12 @@ return new class extends Migration
         Schema::create('programs', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->text('description')->nullable();;
+            $table->text('description')->nullable();
+            $table->text('image')->nullable();
             $table->text('duration')->nullable();
             $table->string('awarded_title')->unique()->nullable();
-            $table->bigInteger('coordinator_id')->unsigned();
-            $table->foreign('coordinator_id')->references('id')->on('users');
+            // $table->bigInteger('coordinator_id')->unsigned();
+            // $table->foreign('coordinator_id')->references('id')->on('users');
 
             $table->unique(['description', 'awarded_title']);
             $table->timestamps();
