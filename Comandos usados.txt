@@ -31,6 +31,8 @@ ng g guard auth/services/auth  --skip-tests ;[enter]
 
 ng g component dashboard/admin/pages/home-admin --inline-style --skip-tests
 
+
+ng g service dashboard/pages/programs  --skip-tests
 -------------------------------
 
 _______________________________         LARAVEL

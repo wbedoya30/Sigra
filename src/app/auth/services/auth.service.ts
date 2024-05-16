@@ -71,7 +71,4 @@ export class AuthService {
     localStorage.removeItem('user');
     this.router.navigate(['/home']);
   }
-  dashboard_admin(){
-    this.router.navigate(['/admin']);
-  }
 }

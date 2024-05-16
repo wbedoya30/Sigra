@@ -1,4 +1,6 @@
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router'; // Add this import statement
+
+import { RouterLink } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from './../services/auth.service';
 import { Component } from '@angular/core';
@@ -32,13 +34,13 @@ export class LoginComponent {
     this.authService.login(this.email, this.password).subscribe((resp:any) => {
       console.log(resp);
 
-      if(!resp.error && resp && resp.status=='inactive'){
+      if(!resp.error && resp){
         // document.location.reload()
         // alert(resp.message);
         // return;
-        this.authService.dashboard_admin();
+        this.router.navigate(['/admin']);
       }else{
-        alert(resp.message);
+        alert(resp.error.message);
         return;
       }
 
