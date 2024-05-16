@@ -22,18 +22,18 @@ class UserSedeer extends Seeder
         DB::table('users')->insert([
             [
                 'name' => 'Sigra Admin',
-                'email' => 'jo46646@gmail.com',
+                'email' => 'sigra@gmail.com',
                 'password' => bcrypt('12345678'),
                 'role' => 'super-admin',
             ],
             [
-                'name' => 'Admin 1',
+                'name' => 'Admin prueba 1',
                 'email' => 'a1@gmail.com',
                 'password' => bcrypt('12345678'),
                 'role' => 'admin',
             ],
             [
-                'name' => 'Admin 2',
+                'name' => 'Admin prueba 2',
                 'email' => 'a2@gmail.com',
                 'password' => bcrypt('12345678'),
                 'role' => 'admin',
