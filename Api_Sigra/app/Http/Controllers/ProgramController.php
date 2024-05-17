@@ -10,7 +10,8 @@ class ProgramController extends Controller
     public function index()
     {
         try {
-            $programs = Program::paginate(10);
+            // $programs = Program::paginate(10);
+            $programs = Program::all();
             return response()->json([
                 'programs' => $programs,
             ], 200);
