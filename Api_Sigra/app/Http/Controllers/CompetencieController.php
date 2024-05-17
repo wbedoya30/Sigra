@@ -10,7 +10,8 @@ class CompetencieController extends Controller
     public function index()
     {
         try {
-            $competencies = Competencie::paginate(10);
+            // $competencies = Competencie::paginate(10);
+            $competencies = Competencie::all();
             return response()->json([
                 'competencies' => $competencies,
             ], 200);

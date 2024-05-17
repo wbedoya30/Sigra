@@ -33,10 +33,14 @@ export const routes: Routes = [
             path: 'programs',
             component: ProgramsComponent
           },
-            {
-              path: 'details',
-              component: DetailsProgramsComponent
-            },
+          // {
+          //   path: 'details',
+          //   component: DetailsProgramsComponent
+          // },
+          {
+            path: 'details/:id',
+            component: DetailsProgramsComponent
+          },
         ]
       },
       // RUTAS DE ADMINISTRACIÓN

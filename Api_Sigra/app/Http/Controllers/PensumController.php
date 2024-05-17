@@ -10,7 +10,8 @@ class PensumController extends Controller
     public function index()
     {
         try {
-            $pensums = Pensum::paginate(10);
+            // $pensums = Pensum::paginate(10);
+            $pensums = Pensum::all();
             return response()->json([
                 'pensums' => $pensums,
             ], 200);

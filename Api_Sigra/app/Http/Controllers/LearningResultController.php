@@ -10,7 +10,8 @@ class LearningResultController extends Controller
     public function index()
     {
         try {
-            $learningResults = LearningResult::paginate(10);
+            // $learningResults = LearningResult::paginate(10);
+            $learningResults = LearningResult::all();
             return response()->json([
                 'learning_results' => $learningResults,
             ], 200);

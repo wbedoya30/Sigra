@@ -10,7 +10,8 @@ class GraduateProfileController extends Controller
     public function index()
     {
         try {
-            $graduateProfiles = GraduateProfile::paginate(10);
+            // $graduateProfiles = GraduateProfile::paginate(10);
+            $graduateProfiles = GraduateProfile::all();
             return response()->json([
                 'graduate_profiles' => $graduateProfiles,
             ], 200);

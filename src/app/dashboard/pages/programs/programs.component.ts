@@ -15,7 +15,7 @@ import { RouterModule, RouterOutlet } from '@angular/router';
     FormsModule,
     CommonModule,
     HttpClientModule,
-    // RouterModule,
+    RouterModule,
     // FormsModule
   ],
   templateUrl: './programs.component.html',
@@ -24,8 +24,10 @@ import { RouterModule, RouterOutlet } from '@angular/router';
     ProgramService,
     HttpClient,
     HttpClientModule,
-    FormBuilder
-  ]
+    FormBuilder,
+    RouterModule,
+  ],
+
 })
 export class ProgramsComponent implements OnInit  {
 

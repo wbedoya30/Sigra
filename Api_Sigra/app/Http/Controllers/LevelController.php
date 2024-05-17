@@ -10,7 +10,8 @@ class LevelController extends Controller
     public function index()
     {
         try {
-            $levels = Level::paginate(10);
+            // $levels = Level::paginate(10);
+            $levels = Level::all();
             return response()->json([
                 'levels' => $levels,
             ], 200);
