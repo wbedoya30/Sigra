@@ -1,3 +1,7 @@
+
+
+
+
 /***********************/
 /*       INDEX         */
 /*======================
@@ -1394,3 +1398,11 @@ ul.pattern .color6 {
   }
 }
 /*# sourceMappingURL=style.css.map */
+
+.col-lg-4- {
+
+  position: relative;
+  top: 200px;
+  left: 33%;
+}
+

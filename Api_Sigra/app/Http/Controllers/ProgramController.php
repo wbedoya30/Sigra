@@ -53,9 +53,10 @@ class ProgramController extends Controller
     public function show($id)
     {
         try {
-            $program = Program::findOrFail($id);
+            //$program = Program::findOrFail($id);
             return response()->json([
-                'program' => $program,
+                //'program' => $program,
+                'data'=> Program::withfind($id),//('pensum')->with('subject')->find($id),
             ], 200);
         } catch (\Exception $err) {
             return response()->json([
@@ -63,7 +64,7 @@ class ProgramController extends Controller
                 'error' => 'Programa no encontrado.',
             ], 404);
         }
-    }
+    } 
 
     public function update(Request $request, $id)
     {

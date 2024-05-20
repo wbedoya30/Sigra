@@ -16,7 +16,7 @@ class ProgramSedeer extends Seeder
         DB::table('programs')->insert([
             [
                 'name' => 'Administración de Empresas',
-                'description' => '',
+                'description' => 'aaaaaaaaaaaaaaaaaaaaaaaaaaaa',
                 'duration' => 'La duración del Programa jornada diurna es de 10 semestres y jornada nocturna es de 11 semestres. ',
                 'awarded_title' => 'Administrador (a) de Empresas ',
                 'image'=> '',

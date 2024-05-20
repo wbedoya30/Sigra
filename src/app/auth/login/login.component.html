@@ -1,4 +1,37 @@
-<div class="container-login">
+
+ 
+    <div class="col-lg-4 col-lg-4- col-md-6 col-12 mt-4 pt-2" >
+    <div class="service-wrapper rounded position-relative text-center border p-4 pt-5 pb-5">
+        <div class="icon text-custom">
+        </div>
+        <div class="content mt-3">
+            <strong><h4 class="title text-uppercase">Bienvenido</h4></strong>
+            <div class="col-lg-12 col-md-6">
+                            <div class="form-group">
+                                <input class="form-control border rounded"type="email" [(ngModel)]="email" name="email" placeholder="Correo Electrónico">
+                            
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control border rounded" type="password" [(ngModel)]="password" name="password" placeholder="Contraseña">
+                            
+                            </div>
+                            <a (click)="login()"class=" btn btn-custom-outline ">Iniciar Sesión
+                                <!-- <i class="mdi mdi-login"></i> -->
+                    
+                              </a>
+
+
+                        </div>
+                        
+</div>      
+
+<!-- <button (click)="login()" type="submit" value="Iniciar Sesión">Iniciar Sesión</button> -->
+    </div>
+</div>
+
+
+
+<!-- <div class="container-login">
     <div class="wrap-login">
         <form class="login-form validate-form" id="formLogin" action="" method="post">
             <span class="login-form-title">LOGIN</span>
@@ -21,4 +54,21 @@
             </div>
         </form>
     </div>
-  </div>
+  </div> -->
+<!-- <body>
+    <header> <h1><strong>SIGRA</strong></h1>
+    </header>
+    <form class="login-form validate-form">
+        <h2>Iniciar Sesión</h2>
+        <label for="email">Usuario:</label>
+        <input type="email" [(ngModel)]="email" id="email" name="email" placeholder="Ingresa tu nombre de usuario" required>
+        <label for="password">Contraseña:</label>
+        <input type="password" [(ngModel)]="password" id="password" name="password" placeholder="Ingresa tu contraseña" required>
+        <a ><button (click)="login()" type="submit" value="Iniciar Sesión"></button></a>
+    </form>
+    
+
+</body> -->
+
+
+
