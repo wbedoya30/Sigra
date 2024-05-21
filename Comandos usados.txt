@@ -1,3 +1,27 @@
+git clone https://github.com/obregon-josh/sigra.git
+
+--------- Angular
+Estando dentro del directorio sigra
+
+npm install
+ng serve
+
+--------- Laravel
+Estando dentro del directorio api_sigra
+
+composer install
+cp .env.example .env
+// configurar la base de datos en ".env"
+php artisan install:api --passport
+php artisan passport:client --personal
+php artisan migrate --seed
+php artisan serve
+
+si tienes algún error de key, ejecuta este comando
+php artisan key:generate
+
+
+
 _______________________________         DATABASE
 drop database sigra; create database sigra;
 -------------------------------

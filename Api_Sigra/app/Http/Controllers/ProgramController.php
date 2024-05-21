@@ -60,7 +60,8 @@ class ProgramController extends Controller
             $program = Program::with('subject')->findOrFail($id);
 
             return response()->json([
-                'program' => $program,
+                //'program' => $program,
+                'data'=> Program::withfind($id),//('pensum')->with('subject')->find($id),
             ], 200);
         } catch (\Exception $err) {
             return response()->json([
