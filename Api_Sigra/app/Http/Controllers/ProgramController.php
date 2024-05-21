@@ -54,14 +54,12 @@ class ProgramController extends Controller
     {
         try {
             // $program = Program::findOrFail($id);
-            //$program = Program::with('coordinator')->findOrFail($id);
 
             //PROGRAMA Con todas sus materias
             $program = Program::with('subject')->findOrFail($id);
 
             return response()->json([
-                //'program' => $program,
-                'data'=> Program::withfind($id),//('pensum')->with('subject')->find($id),
+                'program' => $program,
             ], 200);
         } catch (\Exception $err) {
             return response()->json([
