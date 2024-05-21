@@ -18,6 +18,14 @@ class PensumSedeer extends Seeder
                 'subject_id' => 1,
                 'program_id' => 1,
             ],
+            [
+                'subject_id' => 2,
+                'program_id' => 1,
+            ],
+            [
+                'subject_id' => 2,
+                'program_id' => 2,
+            ],
         ]);
     }
 }

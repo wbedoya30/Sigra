@@ -15,9 +15,19 @@ class LearningResultSedeer extends Seeder
         //
         DB::table('learning_results')->insert([
             [
-                'definition' => '',
+                'definition' => '11',
                 'subject_id' => 1,
                 'level_id' => 1,
+            ],
+            [
+                'definition' => '22',
+                'subject_id' => 1,
+                'level_id' => 2,
+            ],
+            [
+                'definition' => '22',
+                'subject_id' => 2,
+                'level_id' => 2,
             ],
         ]);
     }

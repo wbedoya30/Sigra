@@ -38,7 +38,7 @@ export const routes: Routes = [
           //   component: DetailsProgramsComponent
           // },
           {
-            path: 'details/:id',
+            path: 'program/details/:id',
             component: DetailsProgramsComponent
           },
         ]

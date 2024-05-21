@@ -53,7 +53,12 @@ class ProgramController extends Controller
     public function show($id)
     {
         try {
-            $program = Program::findOrFail($id);
+            // $program = Program::findOrFail($id);
+            //$program = Program::with('coordinator')->findOrFail($id);
+
+            //PROGRAMA Con todas sus materias
+            $program = Program::with('subject')->findOrFail($id);
+
             return response()->json([
                 'program' => $program,
             ], 200);

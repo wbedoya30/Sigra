@@ -15,9 +15,14 @@ class GraduateProfileSedeer extends Seeder
         //
         DB::table('graduate_profiles')->insert([
             [
-                'skills' => '',
+                'skills' => '1',
                 // 'knowledge' => '',
                 'program_id' => 1,
+            ],
+            [
+                'skills' => '2',
+                // 'knowledge' => '',
+                'program_id' => 2,
             ],
         ]);
     }

@@ -15,8 +15,16 @@ class LevelSedeer extends Seeder
         //
         DB::table('levels')->insert([
             [
-                'verb' => '',
+                'verb' => 'aa',
                 'taxonomy_level' => 1,
+            ],
+            [
+                'verb' => 'bb',
+                'taxonomy_level' => 2,
+            ],
+            [
+                'verb' => 'cc',
+                'taxonomy_level' => 3,
             ],
         ]);
     }

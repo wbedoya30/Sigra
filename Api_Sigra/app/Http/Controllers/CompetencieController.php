@@ -51,7 +51,8 @@ class CompetencieController extends Controller
     public function show($id)
     {
         try {
-            $competencie = competencie::findOrFail($id);
+            // $competencie = competencie::findOrFail($id);
+            $competencie = Competencie::with(['graduateProfile', 'graduateProfile.program'])->findOrFail($id);
             return response()->json([
                 'competencie' => $competencie,
             ], 200);

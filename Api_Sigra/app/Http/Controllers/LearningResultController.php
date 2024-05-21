@@ -50,7 +50,8 @@ class LearningResultController extends Controller
     public function show($id)
     {
         try {
-            $learningResult = LearningResult::findOrFail($id);
+            //$learningResult = LearningResult::findOrFail($id);
+            $learningResult = LearningResult::with(['subject', 'level'])->findOrFail($id);
             return response()->json([
                 'learning_result' => $learningResult,
             ], 200);

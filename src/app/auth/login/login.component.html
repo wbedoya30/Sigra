@@ -1,24 +1,29 @@
-<div class="container-login">
-    <div class="wrap-login">
-        <form class="login-form validate-form" id="formLogin" action="" method="post">
-            <span class="login-form-title">LOGIN</span>
+<app-header></app-header>
 
-            <div class="wrap-input100" data-validate = "Usuario incorrecto">
-                <input class="input100" type="email" [(ngModel)]="email"  name="email" placeholder="Correo Electrónico">
-                <span class="focus-efecto"></span>
+<div style="height: 525px; display: flex; justify-content: center; align-items: center;">
+  <div class="col-lg-4 col-md- col-12 mt-4 pt-2">
+    <div class="service-wrapper rounded position-relative text-center border p-4 pt-5 pb-5">
+        <div class="icon text-custom">
+          <img src="favicon.ico" alt="LOGO SIGRA" style="width: 100px;">
+            <!-- <i class="pe-7s-paint-bucket"></i> -->
+        </div>
+        <div class="content mt-3">
+          <h4 class="title text-uppercase">Bienvenidos!</h4>
+          <div class="col-lg-12 col-md-6">
+              <div class="form-group">
+                  <input name="email" id="email" type="email" [(ngModel)]="email" class="form-control border rounded" placeholder="Correo Electrónico">
+              </div>
+              <div class="form-group">
+                <input name="password" id="password" type="password" [(ngModel)]="password" class="form-control border rounded" placeholder="Contraseña">
             </div>
 
-            <div class="wrap-input100" data-validate="Password incorrecto">
-                <input class="input100" type="password" [(ngModel)]="password" name="password" placeholder="Contraseña">
-                <span class="focus-efecto"></span>
-            </div>
-
-            <div class="container-login-form-btn">
-                <div class="wrap-login-form-btn">
-                    <div class="login-form-bgbtn"></div>
-                    <button type="submit" (click)="login()" class="login-form-btn">Entrar</button>
-                </div>
-            </div>
-        </form>
+          </div>
+          <button class="btn btn-custom  mb-2 mr-2" (click)="login()">ENTRAR<i class="mdi mdi-login"></i></button>
+        </div>
     </div>
   </div>
+</div>
+
+<app-footer></app-footer>
+
+

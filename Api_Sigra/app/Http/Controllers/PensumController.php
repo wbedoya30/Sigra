@@ -12,6 +12,7 @@ class PensumController extends Controller
         try {
             // $pensums = Pensum::paginate(10);
             $pensums = Pensum::all();
+            //$pensums = Pensum::with(['subject', 'program'])->get();
             return response()->json([
                 'pensums' => $pensums,
             ], 200);
@@ -48,7 +49,8 @@ class PensumController extends Controller
     public function show($id)
     {
         try {
-            $pensum = Pensum::findOrFail($id);
+            //$pensum = Pensum::findOrFail($id);
+            $pensum = Pensum::with(['subject', 'program'])->findOrFail($id);
             return response()->json([
                 'pensum' => $pensum,
             ], 200);

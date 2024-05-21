@@ -1,15 +1,23 @@
-import { Router } from '@angular/router'; // Add this import statement
+import { FooterComponent } from './../../shared/components/footer/footer.component';
+import { HeaderComponent } from './../../shared/components/header/header.component';
+import { Router, RouterModule } from '@angular/router'; // Add this import statement
 
 import { RouterLink } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from './../services/auth.service';
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   standalone: true,
   imports: [
+    FormsModule, HeaderComponent, FooterComponent,
+    CommonModule,
     FormsModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    RouterModule
     // HttpClientModule,
   ],
   providers: [AuthService],

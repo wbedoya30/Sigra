@@ -15,10 +15,22 @@ class SubjectSedeer extends Seeder
         //
         DB::table('subjects')->insert([
             [
-                'name' => '',
-                'code' => '',
-                'credits' => '',
-                'description' => '',
+                'name' => 'Simulacion',
+                'code' => '1',
+                'credits' => '1',
+                'description' => '1',
+            ],
+            [
+                'name' => 'Ingles',
+                'code' => '2',
+                'credits' => '2',
+                'description' => '2',
+            ],
+            [
+                'name' => 'ADA',
+                'code' => '3',
+                'credits' => '3',
+                'description' => '3',
             ],
         ]);
     }

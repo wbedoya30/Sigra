@@ -50,7 +50,8 @@ class GraduateProfileController extends Controller
     public function show($id)
     {
         try {
-            $graduateProfile = GraduateProfile::findOrFail($id);
+            // $graduateProfile = GraduateProfile::findOrFail($id);
+            $graduateProfile = GraduateProfile::with('Program')->findOrFail($id);
             return response()->json([
                 'graduate_profile' => $graduateProfile,
             ], 200);

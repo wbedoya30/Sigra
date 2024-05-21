@@ -16,9 +16,21 @@ class CompetencieSedeer extends Seeder
         DB::table('competencies')->insert([
             [
                 'type' => 1,
-                'description' => '',
+                'description' => '11111111111111111111111',
                 // 'capabilities' => '',
                 'graduate_profile_id' => 1,
+            ],
+            [
+                'type' => 2,
+                'description' => '2222222222222222',
+                // 'capabilities' => '',
+                'graduate_profile_id' => 2,
+            ],
+            [
+                'type' => 2,
+                'description' => '333333333333333333',
+                // 'capabilities' => '',
+                'graduate_profile_id' => 2,
             ],
         ]);
     }
