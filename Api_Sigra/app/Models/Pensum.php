@@ -15,9 +15,9 @@ class Pensum extends Model
     ];
     //RELACIONES CON OTRAS TABLAS
     public function Subject(){
-        return $this->belongsTo(Subject::class);
+        return $this->belongsTo(Subject::class,'subject_id');
     }
     public function Program(){
-        return $this->belongsTo(Program::class);
+        return $this->belongsTo(Program::class,'program_id');
     }
 }
