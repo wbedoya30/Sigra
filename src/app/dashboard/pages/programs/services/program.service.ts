@@ -7,6 +7,7 @@ import { ProgramsComponent } from '../programs.component';
 })
 export class ProgramService {
   api_URL: string = 'http://127.0.0.1:8000/api';
+  id: any;
 
   constructor(
     private http: HttpClient,
@@ -14,6 +15,10 @@ export class ProgramService {
 
   getPrograms(){
     let URL = this.api_URL + '/programs';
+    return this.http.get(URL);
+  }
+  getProgramDetails(id: number){
+    let URL = `${this.api_URL}/programs/${id}`;
     return this.http.get(URL);
   }
 }
