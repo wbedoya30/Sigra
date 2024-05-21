@@ -56,7 +56,7 @@ class ProgramController extends Controller
             // $program = Program::findOrFail($id);
 
             //PROGRAMA Con todas sus materias
-            $program = Program::with('subject')->findOrFail($id);
+            $program = Program::with(['subject','subject.learningResult'])->findOrFail($id);
 
             return response()->json([
                 'program' => $program,

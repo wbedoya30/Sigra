@@ -4,6 +4,8 @@ import { ProgramService } from '../services/program.service';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { catchError, of } from 'rxjs';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-details-programs',
@@ -29,8 +31,9 @@ export class DetailsProgramsComponent implements OnInit{
   constructor(
     public programService: ProgramService,
     private route: ActivatedRoute,
-    private router: Router,
-    public fb:FormBuilder,
+    // private router: Router,
+    // public fb:FormBuilder,
+    private location: Location, // Inyectar Location
   ) { }
 
   ngOnInit() {
@@ -39,14 +42,19 @@ export class DetailsProgramsComponent implements OnInit{
       this.getProgramDetails(id);
     });
   }
+  programDetails: any = {};
+  //programDetails: any [] = [{}];
 
-  programDetails: any [] = [];
-  
   getProgramDetails(id: number){
-    this.programService.getProgramDetails(id).subscribe((resp:any) => {
+    this.programService.getProgramDetails(id).pipe(
+      catchError((error) => { // Manejar el error
+        this.location.back(); // Navegar a la página anterior
+        return of([]); // Devolver un observable vacío para completar el flujo
+      })
+    ).subscribe((resp:any) => {
       this.programDetails = resp.program;
+      //console.log(this.programDetails)
       console.log(resp);
-      
     })
   }
 

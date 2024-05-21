@@ -1,6 +1,20 @@
+.card .card-header[data-toggle=collapse].collapsed::after {
+  content: '\f142';
+  font-size: 2em;  
+}
 
-
-
+.card .card-header[data-toggle=collapse]::after {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding-right: 1.725rem;
+  line-height: 51px;
+  font-weight: 900;
+  content: '\f140';
+  font-family: 'Material Design Icons';
+  color: #cecfd8;
+  font-size: 2em; 
+}
 
 /***********************/
 /*       INDEX         */
