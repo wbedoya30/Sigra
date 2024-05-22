@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ProgramService } from './services/program.service';
+import { ProgramService } from '../../admin/pages/admin-programs/services/program.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormsModule } from '@angular/forms';

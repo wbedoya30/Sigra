@@ -5,9 +5,9 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-primary[NO]">
       <div class="container-fluid">
         <!-- <a class="navbar-brand" href="#">Student Dashboard</a> -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
-        </button>
+        </button> -->
           <div class="d-flex">
             <button class="btn btn-success" type="submit"  data-bs-toggle="modal" data-bs-target="#exampleModal">Nuevo Usuario</button>
           </div>
@@ -32,8 +32,8 @@
           <td>{{user.role}}</td>
           <td>{{user.status}}</td>
           <td>
-              <!-- <input type="button" value="Edit" (click)="EditUser(users)" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-success me-2"/> -->
-              <!-- <input type="button" value="Delete" (click)="DeleteUser(users)" class="btn btn-danger"/> -->
+              <input *ngIf="user.role != 'admin' && user.role != 'super-admin'" type="button" value="Edit" (click)="editUser(user)" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-success me-2"/>
+              <input *ngIf="user.role != 'admin' && user.role != 'super-admin'" type="button" value="Delete" (click)="DeleteUser(user)" class="btn btn-danger"/>
           </td>
       </tr>
   </tbody>
@@ -45,7 +45,6 @@
 <!-- Button trigger modal -->
 <!-- Button trigger modal -->
 
-
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -56,36 +55,40 @@
         </div>
         <div class="modal-body">
             <!-- <form class="row g-3" [formGroup]="formValue"> -->
-                <div class="col-md-6">
+                <div class="col-12">
                     <label for="inputName" class="form-label">Nombre</label>
-                    <input type="text" formControlName="name" class="form-control" id="inputName">
+                    <input type="text"  [(ngModel)]="name" class="form-control" name="name" id="inputName">
                   </div>
-                  <div class="col-md-6">
-                    <label for="inputClass" class="form-label">Class</label>
-                    <input type="text" formControlName="class" class="form-control" id="inputClass">
-                  </div>
-                <div class="col-md-6">
-                  <label for="inputEmail4" class="form-label">Email</label>
-                  <input type="email" formControlName="email" class="form-control" id="inputEmail4">
-                </div>
-                <div class="col-md-6">
-                  <label for="inputPassword4" class="form-label">Password</label>
-                  <input type="password" formControlName="password" class="form-control" id="inputPassword4">
+                <div class="col-12">
+                  <label for="inputEmail4" class="form-label">Correo Electrónico</label>
+                  <input type="email"  [(ngModel)]="email" class="form-control" name="email" id="inputEmail4" placeholder="sigra@gmail.com">
                 </div>
                 <div class="col-12">
-                  <label for="inputAddress" class="form-label">Address</label>
-                  <input type="text" class="form-control" formControlName="address" id="inputAddress" placeholder="1234 Main St">
+                  <label for="inputPassword4" class="form-label">Contraseña</label>
+                  <input type="password"  [(ngModel)]="password" class="form-control" name="password" id="inputPassword4">
                 </div>
-                <div class="col-12">
-                  <label for="inputCity" class="form-label">City</label>
-                  <input type="text" class="form-control" id="inputAddress2" formControlName="city" placeholder="Enter your city name">
+                <div class="row">
+                  <div class="form-group col-6">
+                    <label>Estado</label>
+                    <select [(ngModel)]="status" name="status" class="form-control selectric">
+                      <option [value]="true">Activo</option>
+                      <option [value]="false">Inactivo</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-6">
+                    <label>Rol</label>
+                    <select [(ngModel)]="role" name="role" class="form-control selectric">
+                      <option value="2">Docente</option>
+                      <option value="3">Coordinador</option>
+                    </select>
+                  </div>
                 </div>
               <!-- </form> -->
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-warning"  data-bs-dismiss="modal">Close</button>
-          <!-- <button *ngIf="btnSaveShow" type="button" class="btn btn-primary" (click)="AddStudent()" >Register</button>
-          <button *ngIf="btnUpdateShow" type="button" class="btn btn-primary" (click)="UpdateStudent()" >Update</button> -->
+          <button type="button" class="btn btn-warning"  data-bs-dismiss="modal">Cerrar</button>
+          <button *ngIf="btnSaveShow" type="button" class="btn btn-primary" (click)="register()" >Registrar Usuario</button>
+          <button *ngIf="btnUpdateShow" type="button" class="btn btn-primary" (click)="updateUser()" >Guardar</button>
         </div>
       </div>
     </div>

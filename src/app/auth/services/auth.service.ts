@@ -2,16 +2,16 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { map, catchError } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   //crear ruta en el envairoment para la url de la api
   api_URL: string = 'http://127.0.0.1:8000/api';
-
   user: any;
   token: any = '';
+
   constructor(
     private _http: HttpClient,
     private router: Router,
@@ -67,46 +67,38 @@ export class AuthService {
     this.router.navigate(['/home']);
   }
 
-  //REGISTER
-  // register(data:any){
-  //   let URL= this.api_URL+'/register';
-  //   return this._http.post(URL, data)
-  // }
-
   //REGISTER - ADD
   registerUser(data:any){
-    return this._http.post<any>(this.api_URL + '/users', data).pipe(map((resp:any)=> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
+    return this._http.post<any>(this.api_URL + '/users', data, { headers }).pipe(map((resp:any)=> {
       return resp
     }))
   }
   //show All
-  ShowUsers() {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this._http.get<any>(this.api_URL + '/users', { headers });
-  }
 
-  ShowUsers1(){
-    return this._http.get<any>(this.api_URL + '/users').pipe(map((resp:any)=> {
+  showUsers(){
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
+    return this._http.get<any>(this.api_URL + '/users', { headers }).pipe(map((resp:any)=> {
       return resp
     }))
   }
   //show One
-  ShowUser(id:number){
+  showUser(id:number){
     return this._http.get<any>(this.api_URL + '/users' + id).pipe(map((resp:any)=> {
       return resp
     }))
   }
   //Update
-  UpdateUser(data:any, id:number){
-    return this._http.put<any>(this.api_URL + '/users' + id, data).pipe(map((resp:any)=> {
+  updateUser(user:any){
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
+    return this._http.put<any>(this.api_URL + '/users/' + user.id, user,  { headers }).pipe(map((resp:any)=> {
       return resp
     }))
   }
   //Delete For Update
-  DeleteUser(id:number){
-    return this._http.delete<any>(this.api_URL + '/users' + id).pipe(map((resp:any)=> {
-      return resp
-    }))
+  deleteUser(user:any): Observable<any>{
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
+    return this._http.delete(`${this.api_URL}/users/${user.id}`,  { headers });
   }
+
 }

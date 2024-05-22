@@ -3,12 +3,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { PagesComponent } from './dashboard/pages/pages.component';
 import { HomeComponent } from './dashboard/pages/home/home.component';
 import { ProgramsComponent } from './dashboard/pages/programs/programs.component';
-import { RegisterComponent } from './dashboard/admin/pages/user/register/register.component';
 import { LoginComponent } from './auth/login/login.component';
-import { AdminDetailsComponent } from './dashboard/admin/pages/admin-details/admin-details.component';
-import { AdminProgramsComponent } from './dashboard/admin/pages/admin-programs/admin-programs.component';
 import { DetailsProgramsComponent } from './dashboard/pages/programs/details-programs/details-programs.component';
-import { HomeAdminComponent } from './dashboard/admin/pages/home-admin/home-admin.component';
 import { AdminComponent } from './dashboard/admin/admin.component';
 import { UserComponent } from './dashboard/admin/pages/user/user.component';
 
@@ -60,10 +56,6 @@ export const routes: Routes = [
             path: 'users',
             component: UserComponent
 
-          },
-          {
-            path: 'users/register',
-            component: RegisterComponent
           },
           // {
           //   path: 'homeadm',

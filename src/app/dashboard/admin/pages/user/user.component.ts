@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { AuthService } from '../../../../auth/services/auth.service';
 import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
-import { FormBuilder, FormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -11,7 +11,8 @@ import { CommonModule } from '@angular/common';
   imports: [
     RouterOutlet,
     CommonModule,
-    // FormsModule,
+    FormsModule,
+    ReactiveFormsModule,
     // HttpClientModule,
     // RouterModule,
   ],
@@ -21,7 +22,6 @@ import { CommonModule } from '@angular/common';
     AuthService,
     // HttpClient,
     // HttpClientModule,
-    // FormBuilder,
     // RouterModule,
 
   ],
@@ -31,35 +31,31 @@ export class UserComponent implements OnInit{
   email:any =null;
   password:any =null;
   role:any =null;
+  status:any =null;
+  userId:any =null;
+
+  users: any[] = [];
+
+  btnUpdateShow:boolean = false;
+  btnSaveShow:boolean = true;
 
   constructor(
-    public authService: AuthService,
-    //private formBuilder:FormBuilder,
+    public userService: AuthService,
+    private formBuilder:FormBuilder,
     // private router: Router,
   ) {}
 
-  users: any[] = [];
+
 
   ngOnInit() {
     this.getUsers();
   }
 
   getUsers(){
-    this.authService.ShowUsers().subscribe((resp:any) => {
-      this.users = resp.users.data;
+    this.userService.showUsers().subscribe((resp:any) => {
+      this.users = resp.users;
       console.log(resp);
     })
-  }
-  getUsers2() {
-    this.authService.ShowUsers().subscribe((resp: any) => {
-      if (resp && resp.users && resp.users.data) {
-        this.users = resp.users.data;
-      } else {
-        console.error('Respuesta inválida de ShowUsers:', resp);
-      }
-    }, error => {
-      console.error('Error al obtener los usuarios:', error);
-    });
   }
 
   register(){
@@ -71,20 +67,66 @@ export class UserComponent implements OnInit{
       name: this.name,
       email: this.email,
       password: this.password,
-      role: this.role
+      role: Number(this.role),
+      status: this.status === 'true'
     }
-    this.authService.registerUser(data).subscribe((resp:any)=>{
+    this.userService.registerUser(data).subscribe((resp:any)=>{
       //console.log(resp);
       if(!resp.error){
+        this.getUsers();
         alert(resp.message);
         return;
+        alert('Usuario registrado correctamente');
        }
       else{
-
         alert(resp.message);
         return;
       }
-      alert('Usuario registrado correctamente');
     })
+  }
+
+  editUser(user:any){
+    this.userId = user.id; // Guarda el ID del usuario
+    this.name = user.name;
+    this.email = user.email;
+    this.password = user.password; // Asegúrate de que estás asignando el valor de la contraseña aquí
+    this.status = user.status; // Asegúrate de que estás asignando el valor del estado aquí
+    this.role = user.role;
+    this.UpdateShowBtn();
+  }
+
+  updateUser(){
+    let user = {
+      name: this.name,
+      email: this.email,
+      password: this.password,
+      status: this.status === 'true',
+      role: Number(this.role),
+      id: this.userId,
+    };
+
+    this.userService.updateUser(user).subscribe(res => {
+      this.getUsers();
+      this.SaveShowBtn();
+      alert("Usuario actualizado");
+    })
+  }
+  DeleteUser(user:any){
+    this.userService.deleteUser(user).subscribe(resp => {
+      this.getUsers();
+      alert("La cuenta del Usuario ahora esta inactiva");
+    },
+    error =>{
+      alert("Error")
+    });
+  }
+
+  UpdateShowBtn(){
+    this.btnUpdateShow = true;
+    this.btnSaveShow = false;
+  }
+  SaveShowBtn(){
+    this.btnUpdateShow = false;
+    this.btnSaveShow = true;
   }
 }

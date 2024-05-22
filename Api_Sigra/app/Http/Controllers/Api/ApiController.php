@@ -86,7 +86,8 @@ class ApiController extends Controller
     public function index()
     {
         try {
-            $users = User::paginate(10); // Usar paginación en lugar de cargar todos los usuarios
+            // $users = User::paginate(10);// Usar paginación en lugar de cargar todos los usuarios
+            $users = User::all();
             return response()->json([
                 'users' => $users,
             ], 200);
