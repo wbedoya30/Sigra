@@ -53,8 +53,10 @@ ng g component auth/Profile --inline-style --skip-tests
 ng g service auth/services/auth  --skip-tests
 ng g guard auth/services/auth  --skip-tests ;[enter]
 
+ng g component dashboard/admin --inline-style --skip-tests
 ng g component dashboard/admin/pages/home-admin --inline-style --skip-tests
-
+ng g component dashboard/admin/pages/user --inline-style --skip-tests
+ng g service dashboard/admin/pages/user/services/user  --skip-tests
 
 ng g service dashboard/pages/programs  --skip-tests
 -------------------------------

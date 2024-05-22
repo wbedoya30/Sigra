@@ -10,10 +10,10 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [
     CommonModule,
-    // FormsModule,
-    // HttpClientModule,
-    // ReactiveFormsModule,
-    // RouterModule
+    FormsModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    RouterModule
   ],
   providers: [AuthService],
   templateUrl: './navbar.component.html',

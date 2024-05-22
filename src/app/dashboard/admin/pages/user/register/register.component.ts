@@ -1,4 +1,4 @@
-import { AuthService } from './../services/auth.service';
+import { AuthService } from '../../../../../auth/services/auth.service';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -35,7 +35,7 @@ export class RegisterComponent {
       password: this.password,
       role: this.role
     }
-    this.authService.register(data).subscribe((resp:any)=>{
+    this.authService.registerUser(data).subscribe((resp:any)=>{
       //console.log(resp);
       if(!resp.error){
         alert(resp.message);

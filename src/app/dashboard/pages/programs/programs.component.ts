@@ -16,7 +16,6 @@ import { RouterModule, RouterOutlet } from '@angular/router';
     CommonModule,
     HttpClientModule,
     RouterModule,
-    // FormsModule
   ],
   templateUrl: './programs.component.html',
   styles: ``,

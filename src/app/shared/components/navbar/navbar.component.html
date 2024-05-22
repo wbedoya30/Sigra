@@ -1,5 +1,40 @@
-<p *ngIf="user">Bienvenido! {{user.name}}</p>
+<header class="navbar navbar-expand-lg fixed-top navbar-custom navbar-light sticky">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/home">
+      <img src="assets/images/logo.png" height="30" alt="Logo">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="mdi mdi-menu"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav navbar-nav-link mx-auto">
+          <li class="nav-item active"> <!-- active : mantener cl color del texto activo -->
+              <a class="nav-link" routerLink="#">USUARIOS</a>
+          </li>
+           <li class="nav-item">
+              <a class="nav-link" routerLink="/programs">Programas</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" routerLink="/programs">Asignaturas</a>
+          </li>
+
+      </ul>
+      <span class="nav-item" >
+        <a *ngIf="user" class="nav-link">Bienvenido! {{user.name}}</a>
+      </span>
+
+      <span >
+        <a routerLink="#" class=" btn btn-custom-outline" *ngIf="user" onclick="return false;" (click)="logout()" >Cerrar Sesión
+          <i class="mdi mdi-logout"></i>
+        </a>
+      </span>
+    </div>
+  </div>
+</header>
+
+
+<!-- <p *ngIf="user">Bienvenido! {{user.name}}</p>
 <p *ngIf="!user">Bienvenido!</p>
-<a href="#" *ngIf="user" onclick="return false;" (click)="logout()">
+<a href="#" *ngIf="user" onclick="return false;" (click)="logout()" >
  Cerrar Sesión
-</a>
+</a> -->
