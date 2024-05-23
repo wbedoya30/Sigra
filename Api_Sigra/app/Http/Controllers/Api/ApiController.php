@@ -106,7 +106,8 @@ class ApiController extends Controller
                 "name" => "required|string|max:255",
                 "email" => "required|string|email|unique:users",
                 "password" => "required|min:8",
-                "role" => "required|string",
+                'status' => 'nullable|boolean',
+                "role" => "required|string|in:1,user,2,docente,3,coordinador,4,admin,5,super-admin",
             ]);
 
             $validatedData['password'] = bcrypt($validatedData['password']);

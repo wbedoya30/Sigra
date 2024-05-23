@@ -30,8 +30,8 @@ export class UserComponent implements OnInit{
   name:any =null;
   email:any =null;
   password:any =null;
-  role:any =null;
-  status:any =null;
+  role = "docente";
+  status = 1;
   userId:any =null;
 
   users: any[] = [];
@@ -44,8 +44,6 @@ export class UserComponent implements OnInit{
     private formBuilder:FormBuilder,
     // private router: Router,
   ) {}
-
-
 
   ngOnInit() {
     this.getUsers();
@@ -67,8 +65,8 @@ export class UserComponent implements OnInit{
       name: this.name,
       email: this.email,
       password: this.password,
-      role: Number(this.role),
-      status: this.status === 'true'
+      role: this.role,
+      status: this.status,
     }
     this.userService.registerUser(data).subscribe((resp:any)=>{
       //console.log(resp);
@@ -100,8 +98,8 @@ export class UserComponent implements OnInit{
       name: this.name,
       email: this.email,
       password: this.password,
-      status: this.status === 'true',
-      role: Number(this.role),
+      status: this.status,
+      role: this.role,
       id: this.userId,
     };
 
@@ -114,11 +112,11 @@ export class UserComponent implements OnInit{
   DeleteUser(user:any){
     this.userService.deleteUser(user).subscribe(resp => {
       this.getUsers();
-      alert("La cuenta del Usuario ahora esta inactiva");
     },
     error =>{
       alert("Error")
     });
+    alert("La cuenta del Usuario ahora esta inactiva");
   }
 
   UpdateShowBtn(){
@@ -128,5 +126,11 @@ export class UserComponent implements OnInit{
   SaveShowBtn(){
     this.btnUpdateShow = false;
     this.btnSaveShow = true;
+    this.name =null;
+    this.email =null;
+    this.password =null;
+    this.role = "docente";
+    this.status = 1;
+    this.userId =null;
   }
 }

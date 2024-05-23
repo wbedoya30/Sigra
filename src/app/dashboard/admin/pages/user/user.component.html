@@ -32,8 +32,8 @@
           <td>{{user.role}}</td>
           <td>{{user.status}}</td>
           <td>
-              <input *ngIf="user.role != 'admin' && user.role != 'super-admin'" type="button" value="Edit" (click)="editUser(user)" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-success me-2"/>
-              <input *ngIf="user.role != 'admin' && user.role != 'super-admin'" type="button" value="Delete" (click)="DeleteUser(user)" class="btn btn-danger"/>
+            <input *ngIf="user.role != 'admin' && user.role != 'super-admin'" type="button" value="Edit" (click)="editUser(user)" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-success me-2"/>
+            <input *ngIf="user.role != 'admin' && user.role != 'super-admin' && user.status != false" type="button" value="Delete" (click)="DeleteUser(user)" class="btn btn-danger"/>
           </td>
       </tr>
   </tbody>
@@ -51,7 +51,8 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">USUARIO</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+          <button (click)="SaveShowBtn()" type="button" class="btn btn-dark"  data-bs-dismiss="modal">X</button>
         </div>
         <div class="modal-body">
             <!-- <form class="row g-3" [formGroup]="formValue"> -->
@@ -67,29 +68,41 @@
                   <label for="inputPassword4" class="form-label">Contraseña</label>
                   <input type="password"  [(ngModel)]="password" class="form-control" name="password" id="inputPassword4">
                 </div>
-                <div class="row">
-                  <div class="form-group col-6">
-                    <label>Estado</label>
-                    <select [(ngModel)]="status" name="status" class="form-control selectric">
-                      <option [value]="true">Activo</option>
-                      <option [value]="false">Inactivo</option>
-                    </select>
-                  </div>
-                  <div class="form-group col-6">
-                    <label>Rol</label>
-                    <select [(ngModel)]="role" name="role" class="form-control selectric">
-                      <option value="2">Docente</option>
-                      <option value="3">Coordinador</option>
-                    </select>
+                <div class="col-12">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label for="inputPassword4" class="form-label">Estado</label>
+                      <select [(ngModel)]="status" name="status" class="form-control">
+                        <option [value]="1" selected>Activo</option>
+                        <option [value]="0">Inactivo</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6">
+                      <label for="inputPassword4" class="form-label">Rol</label>
+                      <select [(ngModel)]="role" name="role" class="form-control">
+                        <option value="docente" selected>Docente</option>
+                        <option value="coordinador">Coordinador</option>
+                      </select>
+                    </div>
                   </div>
                 </div>
               <!-- </form> -->
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-warning"  data-bs-dismiss="modal">Cerrar</button>
+          <!-- <button type="button" class="btn btn-warning"  data-bs-dismiss="modal">Cerrar</button> -->
           <button *ngIf="btnSaveShow" type="button" class="btn btn-primary" (click)="register()" >Registrar Usuario</button>
           <button *ngIf="btnUpdateShow" type="button" class="btn btn-primary" (click)="updateUser()" >Guardar</button>
         </div>
       </div>
     </div>
   </div>
+<!-- LIMPIAR CAMPOS CUANDO SE DA CLICKAFEURA DEL PANEL
+
+$('#exampleModal').on('hidden.bs.modal', function (e) {
+  document.getElementById('inputName').value = '';
+  document.getElementById('inputEmail4').value = '';
+  document.getElementById('inputPassword4').value = '';
+  // Asegúrate de agregar los identificadores para los campos de estado y rol si también quieres limpiarlos
+})
+
+-->
