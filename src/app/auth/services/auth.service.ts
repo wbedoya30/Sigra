@@ -14,10 +14,12 @@ export class AuthService {
 
   constructor(
     private _http: HttpClient,
-    private router: Router,
+    private _router: Router,
   ) {
     this.loadStorage();
    }
+
+
 
   loadStorage(){
     if(localStorage.getItem("token")){
@@ -64,7 +66,7 @@ export class AuthService {
     this.token = '';
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    this.router.navigate(['/home']);
+    this._router.navigate(['/home']);
   }
 
   //REGISTER - ADD

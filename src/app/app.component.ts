@@ -22,13 +22,15 @@ import { AuthService } from './auth/services/auth.service';
 })
 export class AppComponent {
   title = 'Sigra';
+
+  //LOGOUT POR INACTIVIDAD
   timer: any;
   minutos = 15; // tiempo de inactividad
   idleTime = this.minutos * 60 * 1000;
 
   constructor(
     private router: Router,
-    public authservice:AuthService,
+    public _authService:AuthService,
   ) {
     this.resetTimer();
     window.onmousemove = () => this.resetTimer();
@@ -43,7 +45,7 @@ export class AppComponent {
   }
 
   logout() {
-    this.authservice.logout(); //Pendiente guardar cualquier cambio antes del logout
+    this._authService.logout(); //Pendiente guardar cualquier cambio antes del logout
     this.router.navigate(['/login']);
   }
 

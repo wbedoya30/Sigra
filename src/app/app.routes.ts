@@ -9,6 +9,7 @@ import { AdminComponent } from './dashboard/admin/admin.component';
 import { UserComponent } from './dashboard/admin/pages/user/user.component';
 import { AdminProgramsComponent } from './dashboard/admin/pages/admin-programs/admin-programs.component';
 import { AdminSubjectsComponent } from './dashboard/admin/pages/admin-subjects/admin-subjects.component';
+import { AuthGuard } from './auth/services/auth.guard';
 
 export const routes: Routes = [
   {//RAÍZ
@@ -43,6 +44,7 @@ export const routes: Routes = [
       {
         path: 'admin',
         component: AdminComponent,
+        canActivate: [AuthGuard], 
         children: [
           { //CORREGIR
             path: '',
