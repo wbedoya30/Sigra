@@ -8,6 +8,7 @@ import { DetailsProgramsComponent } from './dashboard/pages/programs/details-pro
 import { AdminComponent } from './dashboard/admin/admin.component';
 import { UserComponent } from './dashboard/admin/pages/user/user.component';
 import { AdminProgramsComponent } from './dashboard/admin/pages/admin-programs/admin-programs.component';
+import { AdminSubjectsComponent } from './dashboard/admin/pages/admin-subjects/admin-subjects.component';
 
 export const routes: Routes = [
   {//RAÍZ
@@ -60,11 +61,11 @@ export const routes: Routes = [
             component: AdminProgramsComponent
 
           },
-          // {
-          //   path: 'subjects',
-          //   // component: AdminSub
+          {
+            path: 'subjects',
+            component: AdminSubjectsComponent
 
-          // },
+          },
 
         ]
       },

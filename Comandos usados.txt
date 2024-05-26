@@ -59,6 +59,9 @@ ng g component dashboard/admin/pages/home-admin --inline-style --skip-tests
 ng g component dashboard/admin/pages/user --inline-style --skip-tests
 ng g service dashboard/admin/pages/user/services/user  --skip-tests
 
+ng g component dashboard/admin/pages/admin-subjects --inline-style --skip-tests
+ng g service dashboard/admin/pages/admin-subjects/services/subject  --skip-tests
+
 ng g service dashboard/pages/programs  --skip-tests
 -------------------------------
 
