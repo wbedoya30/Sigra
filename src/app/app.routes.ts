@@ -7,6 +7,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { DetailsProgramsComponent } from './dashboard/pages/programs/details-programs/details-programs.component';
 import { AdminComponent } from './dashboard/admin/admin.component';
 import { UserComponent } from './dashboard/admin/pages/user/user.component';
+import { AdminProgramsComponent } from './dashboard/admin/pages/admin-programs/admin-programs.component';
 
 export const routes: Routes = [
   {//RAÍZ
@@ -31,10 +32,6 @@ export const routes: Routes = [
             path: 'programs',
             component: ProgramsComponent
           },
-          // {
-          //   path: 'details',
-          //   component: DetailsProgramsComponent
-          // },
           {
             path: 'program/details/:id',
             component: DetailsProgramsComponent
@@ -52,30 +49,25 @@ export const routes: Routes = [
             // redirectTo: 'admin/users',
             // pathMatch: 'full'
           },
+          //CRUD
           {
-            path: 'users',
+            path: 'users', 
             component: UserComponent
 
           },
+          {
+            path: 'programs',
+            component: AdminProgramsComponent
+
+          },
           // {
-          //   path: 'homeadm',
-          //   component: HomeAdminComponent
+          //   path: 'subjects',
+          //   // component: AdminSub
+
           // },
-          // {
-          //   path: 'programsadm',
-          //   component: AdminProgramsComponent
-          // },
-          // {
-          //   path: 'detailsadm',
-          //   component: AdminDetailsComponent
-          // },
+
         ]
       },
-      // {
-      //   path: 'admin/users/register',
-      //   component: RegisterComponent
-      // },
-
       // RUTAS DE USUARIOS AUTH
       {
         path: 'auth/login',

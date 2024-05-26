@@ -56,7 +56,7 @@ export class UserComponent implements OnInit{
     })
   }
 
-  register(){
+  registerUser(){
     if(!this.name || !this.email || !this.password || !this.role){
       alert('Debe llenar todos los campos');
       return;
@@ -109,7 +109,7 @@ export class UserComponent implements OnInit{
       alert("Usuario actualizado");
     })
   }
-  DeleteUser(user:any){
+  deleteUser(user:any){
     this.userService.deleteUser(user).subscribe(resp => {
       this.getUsers();
     },

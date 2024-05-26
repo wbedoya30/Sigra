@@ -84,7 +84,8 @@ export class AuthService {
   }
   //show One
   showUser(id:number){
-    return this._http.get<any>(this.api_URL + '/users' + id).pipe(map((resp:any)=> {
+    //mandar token pediente
+    return this._http.get<any>(this.api_URL + '/users/' + id).pipe(map((resp:any)=> {
       return resp
     }))
   }

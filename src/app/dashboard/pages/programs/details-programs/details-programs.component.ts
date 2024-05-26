@@ -38,7 +38,7 @@ export class DetailsProgramsComponent implements OnInit{
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      let id = params['id'];
+      let id = params['id']; //mandar ide a la ruta
       this.getProgramDetails(id);
     });
   }
@@ -46,7 +46,7 @@ export class DetailsProgramsComponent implements OnInit{
   //programDetails: any [] = [{}];
 
   getProgramDetails(id: number){
-    this.programService.getProgramDetails(id).pipe(
+    this.programService.showProgram(id).pipe(
       catchError((error) => { // Manejar el error
         this.location.back(); // Navegar a la página anterior
         return of([]); // Devolver un observable vacío para completar el flujo

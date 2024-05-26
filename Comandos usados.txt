@@ -26,6 +26,7 @@ _______________________________         DATABASE
 drop database sigra; create database sigra;
 -------------------------------
 _______________________________         ANGULAR
+ng generate guard auth //crear archivo guardian
 ng new Sigra //crear proyecto
 - configurar la estructura de carpetas
 //crear un componente sin el css y las pruebas

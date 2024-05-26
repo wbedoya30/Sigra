@@ -15,6 +15,7 @@ class Program extends Model
         'duration',
         'awarded_title',
         'image',
+        'status',
         // 'coordinator_id', //se manda de manera interna
 
     ];
