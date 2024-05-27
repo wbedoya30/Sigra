@@ -10,6 +10,7 @@ import { UserComponent } from './dashboard/admin/pages/user/user.component';
 import { AdminProgramsComponent } from './dashboard/admin/pages/admin-programs/admin-programs.component';
 import { AdminSubjectsComponent } from './dashboard/admin/pages/admin-subjects/admin-subjects.component';
 import { AuthGuard } from './auth/services/auth.guard';
+import { HomeAdminComponent } from './dashboard/admin/pages/home-admin/home-admin.component';
 
 export const routes: Routes = [
   {//RAÍZ
@@ -44,29 +45,26 @@ export const routes: Routes = [
       {
         path: 'admin',
         component: AdminComponent,
-        canActivate: [AuthGuard], 
+        canActivate: [AuthGuard],
         children: [
-          { //CORREGIR
+          {
             path: '',
-            component: UserComponent
-            // redirectTo: 'admin/users',
-            // pathMatch: 'full'
+            //component: HomeAdminComponent
+            redirectTo: '/admin/users',
+            pathMatch: 'full'
           },
           //CRUD
           {
             path: 'users', 
-            component: UserComponent
-
+            component: UserComponent,
           },
           {
             path: 'programs',
-            component: AdminProgramsComponent
-
+            component: AdminProgramsComponent,
           },
           {
             path: 'subjects',
-            component: AdminSubjectsComponent
-
+            component: AdminSubjectsComponent,
           },
 
         ]
@@ -78,7 +76,6 @@ export const routes: Routes = [
       },
     ]
   },
-
   {//NO EXISTE LA RUTA
     path: '**',
     redirectTo: '/home'
