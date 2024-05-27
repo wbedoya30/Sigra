@@ -1,17 +1,14 @@
-
-<router-outlet></router-outlet>
-
-<!-- <p>PROGRAMS works!</p> -->
+<!-- <p>admin-subjects works!</p> -->
 
 <section class="container">
   <nav class="navbar navbar-expand-lg navbar-light" style="background: #435d7d; ">
     <div class="container-fluid">
-      <a class="navbar-brand" style="color: white;">PROGRAMAS</a>
+      <a class="navbar-brand" style="color: white;">ASIGNATURAS</a>
       <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button> -->
         <div class="d-flex">
-          <button class="btn btn-success" type="submit"  data-bs-toggle="modal" data-bs-target="#exampleModal">Nuevo Programa</button>
+          <button class="btn btn-success" type="submit"  data-bs-toggle="modal" data-bs-target="#exampleModal">Nuevo Asignatura</button>
         </div>
       </div>
   </nav>
@@ -22,24 +19,24 @@
         <th>Nombre</th>
         <th>Descripcion</th>
         <!-- <th>Imagen</th> -->
-        <th>Duracion</th>
-        <th>Titulo </th>
+        <th>Código</th>
+        <th>Créditos</th>
         <th>Estado</th>
         <th>Acción</th>
     </tr>
 </thead>
 <tbody>
-    <tr *ngFor="let program of programs">
-        <td>{{program.id}}</td>
-        <td>{{program.name}}</td>
-        <td>{{program.description}}</td>
-        <!-- <td>{{program.image}}</td> -->
-        <td>{{program.duration}}</td>
-        <td>{{program.awarded_title}}</td>
-        <td>{{program.status}}</td>
+    <tr *ngFor="let subject of subjects">
+        <td>{{subject.id}}</td>
+        <td>{{subject.name}}</td>
+        <td>{{subject.description}}</td>
+        <!-- <td>{{subject.image}}</td> -->
+        <td>{{subject.code}}</td>
+        <td>{{subject.credits}}</td>
+        <td>Pendiente - Base de datos</td>
         <td>
-          <input type="button" value="Edit" (click)="editProgram(program)" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-success me-2"/>
-          <input *ngIf="program.status != false" type="button" value="Delete" (click)="deleteProgram(program)" class="btn btn-danger"/>
+          <input type="button" value="Edit" (click)="editSubject(subject)" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-success me-2"/>
+          <input *ngIf="subject.status != false" type="button" value="Delete" (click)="deleteSubject(subject)" class="btn btn-danger"/>
         </td>
     </tr>
 </tbody>
@@ -56,7 +53,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">PROGRAMA</h5>
+        <h5 class="modal-title" id="exampleModalLabel">ASIGNATURA</h5>
         <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
         <button (click)="SaveShowBtn()" type="button" class="btn btn-dark"  data-bs-dismiss="modal">X</button>
       </div>
@@ -74,11 +71,11 @@
             <input type="image" class="form-control" name="image">
           </div> -->
           <div class="col-12">
-            <label class="form-label">Duración</label>
+            <label class="form-label">Código</label>
             <input [(ngModel)]="duration" type="text" class="form-control" name="duration">
           </div>
           <div class="col-12">
-            <label class="form-label">Titulo Otorgado</label>
+            <label class="form-label">Créditos</label>
             <input [(ngModel)]="awarded_title" type="text" class="form-control" name="awarded_title">
           </div>
           <div class="col-12">
@@ -120,10 +117,9 @@
       <div class="modal-footer">
         
         <!-- <button type="button" class="btn btn-warning"  data-bs-dismiss="modal">Cerrar</button> -->
-        <button *ngIf="btnSaveShow" (click)="registerProgram()"  type="button" class="btn btn-primary" >Registrar Programa</button>
-        <button *ngIf="btnUpdateShow" (click)="updateProgram()"  type="button" class="btn btn-primary" >Guardar</button>
+        <button *ngIf="btnSaveShow" (click)="registerSubject()"  type="button" class="btn btn-primary" >Registrar Asignatura</button>
+        <button *ngIf="btnUpdateShow" (click)="updateSubject()"  type="button" class="btn btn-primary" >Guardar</button>
       </div>
     </div>
   </div>
 </div>
-

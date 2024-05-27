@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterOutlet } from '@angular/router';
-import { ProgramService } from './services/program.service';
 import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterOutlet } from '@angular/router';
+import { SubjectService } from './services/subject.service';
 
 @Component({
-  selector: 'app-admin-programs',
+  selector: 'app-admin-subjects',
   standalone: true,
   imports: [
     RouterOutlet,
@@ -13,48 +13,48 @@ import { CommonModule } from '@angular/common';
     FormsModule,
     ReactiveFormsModule,
   ],
-  templateUrl: './admin-programs.component.html',
+  templateUrl: './admin-subjects.component.html',
   styles: ``,
   providers: [
-    ProgramService,
+    SubjectService,
     // HttpClient,
     // HttpClientModule,
     // RouterModule,
 
   ],
 })
-export class AdminProgramsComponent implements OnInit{
+export class AdminSubjectsComponent implements OnInit{
   name:any =null;
   description:any =null;
   image:any =null;
   duration = null;
   awarded_title = null;
   status = 1;
-  programId:any =null;
+  subjectId:any =null;
 
-  programs: any[] = [];
+  subjects: any[] = [];
 
   btnUpdateShow:boolean = false;
   btnSaveShow:boolean = true;
 
   constructor(
-    public _programService: ProgramService,
+    public _subjectService: SubjectService,
     // private formBuilder:FormBuilder,
     // private router: Router,
   ) {}
 
   ngOnInit() {
-    this.getPrograms();
+    this.getSubjects();
   }
 
-  getPrograms(){
-    this._programService.showPrograms().subscribe((resp:any) => {
-      this.programs = resp.programs;
+  getSubjects(){
+    this._subjectService.showSubjects().subscribe((resp:any) => {
+      this.subjects = resp.subjects;
       console.log(resp);
     })
   }
 
-  registerProgram(){
+  registerSubject(){
     if(!this.name || !this.description || !this.duration || !this.awarded_title){
       alert('Debe llenar todos los campos');
       return;
@@ -66,13 +66,13 @@ export class AdminProgramsComponent implements OnInit{
       awarded_title: this.awarded_title,
       status: this.status,
     }
-    this._programService.registerProgram(data).subscribe((resp:any)=>{
+    this._subjectService.registerSubject(data).subscribe((resp:any)=>{
       //console.log(resp);
       if(!resp.error){
-        this.getPrograms();
+        this.getSubjects();
         alert(resp.message);
         return;
-        alert('Programa registrado correctamente');
+        alert('Asignatura registrado correctamente');
        }
       else{
         alert(resp.message);
@@ -81,40 +81,40 @@ export class AdminProgramsComponent implements OnInit{
     })
   }
 
-  editProgram(program:any){
-    this.programId = program.id; 
-    this.name = program.name;
-    this.description = program.description;
-    this.duration = program.duration; 
-    this.status = program.status;
-    this.awarded_title = program.awarded_title;
+  editSubject(subject:any){
+    this.subjectId = subject.id; 
+    this.name = subject.name;
+    this.description = subject.description;
+    this.duration = subject.duration; 
+    this.status = subject.status;
+    this.awarded_title = subject.awarded_title;
     this.UpdateShowBtn();
   }
 
-  updateProgram(){
-    let program = {
+  updateSubject(){
+    let subject = {
       name: this.name,
       description: this.description,
       duration: this.duration,
       status: this.status,
       awarded_title: this.awarded_title,
-      id: this.programId,
+      id: this.subjectId,
     };
 
-    this._programService.updateProgram(program).subscribe(resp => {
-      this.getPrograms();
+    this._subjectService.updateSubject(subject).subscribe(resp => {
+      this.getSubjects();
       this.SaveShowBtn();
       alert("Usuario actualizado");
     })
   }
-  deleteProgram(program:any){
-    this._programService.deleteProgram(program).subscribe(resp => {
-      this.getPrograms();
+  deleteSubject(subject:any){
+    this._subjectService.deleteSubject(subject).subscribe(resp => {
+      this.getSubjects();
     },
     error =>{
       alert("Error")
     });
-    alert("El programa pasara a estar oculto para el publico");
+    alert("La materia fue eliminada");
   }
 
   UpdateShowBtn(){
@@ -129,6 +129,6 @@ export class AdminProgramsComponent implements OnInit{
     this.duration =null;
     this.awarded_title = null;
     this.status = 1;
-    this.programId =null;
+    this.subjectId =null;
   }
 }

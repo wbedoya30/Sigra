@@ -43,8 +43,9 @@ export class ProgramsComponent implements OnInit  {
     await this.getPrograms();
   }
   programs: any [] = [];
+  
   getPrograms(){
-    this.programService.getPrograms().subscribe((resp:any) => {
+    this.programService.showPrograms().subscribe((resp:any) => {
       this.programs = resp.programs;
       console.log(resp);
 

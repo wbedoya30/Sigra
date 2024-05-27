@@ -9,25 +9,42 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav navbar-nav-link mx-auto">
           <li class="nav-item active"> <!-- active : mantener cl color del texto activo -->
-              <a class="nav-link" routerLink="#">USUARIOS</a>
+              <a class="nav-link" routerLink="/admin/users">USUARIOS</a>
           </li>
            <li class="nav-item">
-              <a class="nav-link" routerLink="/programs">Programas</a>
+              <a class="nav-link" routerLink="/admin/programs">Programas</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" routerLink="/programs">Asignaturas</a>
+              <a class="nav-link" routerLink="/admin/subjects">Asignaturas</a>
           </li>
 
       </ul>
-      <span class="nav-item" >
+      <section>
+        <ul class="nav nav-pills">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle rounded-pill" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Bienvenido! {{user.name}}</a>
+            <ul class="dropdown-menu">
+              <p class="text-center">Información</p>
+              <li><a class="dropdown-item rounded-pill" routerLink="#"><i class="mdi mdi-account" ></i> My Perfil</a></li>
+              <!-- <li><a class="dropdown-item" href="#">Another action</a></li> -->
+              <li><hr class="dropdown-divider"></li>
+              <li>
+                <a class="dropdown-item rounded-pill" routerLink="#" *ngIf="user" onclick="return false;" (click)="logout()" >
+                  <i class="mdi mdi-logout" ></i> Cerrar Sesión
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+      <!-- <span class="nav-item" >
         <a *ngIf="user" class="nav-link">Bienvenido! {{user.name}}</a>
-      </span>
-
-      <span >
+      </span> -->
+      <!-- <span >
         <a routerLink="#" class=" btn btn-custom-outline" *ngIf="user" onclick="return false;" (click)="logout()" >Cerrar Sesión
           <i class="mdi mdi-logout"></i>
         </a>
-      </span>
+      </span> -->
     </div>
   </div>
 </header>

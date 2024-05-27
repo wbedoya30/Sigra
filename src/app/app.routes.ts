@@ -7,6 +7,10 @@ import { LoginComponent } from './auth/login/login.component';
 import { DetailsProgramsComponent } from './dashboard/pages/programs/details-programs/details-programs.component';
 import { AdminComponent } from './dashboard/admin/admin.component';
 import { UserComponent } from './dashboard/admin/pages/user/user.component';
+import { AdminProgramsComponent } from './dashboard/admin/pages/admin-programs/admin-programs.component';
+import { AdminSubjectsComponent } from './dashboard/admin/pages/admin-subjects/admin-subjects.component';
+import { AuthGuard } from './auth/services/auth.guard';
+import { HomeAdminComponent } from './dashboard/admin/pages/home-admin/home-admin.component';
 
 export const routes: Routes = [
   {//RAÍZ
@@ -31,10 +35,6 @@ export const routes: Routes = [
             path: 'programs',
             component: ProgramsComponent
           },
-          // {
-          //   path: 'details',
-          //   component: DetailsProgramsComponent
-          // },
           {
             path: 'program/details/:id',
             component: DetailsProgramsComponent
@@ -45,37 +45,30 @@ export const routes: Routes = [
       {
         path: 'admin',
         component: AdminComponent,
+        canActivate: [AuthGuard],
         children: [
-          { //CORREGIR
+          {
             path: '',
-            component: UserComponent
-            // redirectTo: 'admin/users',
-            // pathMatch: 'full'
+            //component: HomeAdminComponent
+            redirectTo: '/admin/users',
+            pathMatch: 'full'
+          },
+          //CRUD
+          {
+            path: 'users', 
+            component: UserComponent,
           },
           {
-            path: 'users',
-            component: UserComponent
-
+            path: 'programs',
+            component: AdminProgramsComponent,
           },
-          // {
-          //   path: 'homeadm',
-          //   component: HomeAdminComponent
-          // },
-          // {
-          //   path: 'programsadm',
-          //   component: AdminProgramsComponent
-          // },
-          // {
-          //   path: 'detailsadm',
-          //   component: AdminDetailsComponent
-          // },
+          {
+            path: 'subjects',
+            component: AdminSubjectsComponent,
+          },
+
         ]
       },
-      // {
-      //   path: 'admin/users/register',
-      //   component: RegisterComponent
-      // },
-
       // RUTAS DE USUARIOS AUTH
       {
         path: 'auth/login',
@@ -83,7 +76,6 @@ export const routes: Routes = [
       },
     ]
   },
-
   {//NO EXISTE LA RUTA
     path: '**',
     redirectTo: '/home'

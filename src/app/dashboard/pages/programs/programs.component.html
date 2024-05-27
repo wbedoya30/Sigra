@@ -15,28 +15,29 @@
         </div>
 
         <div class="row">
-            <div class="col-lg-4 col-md-6 col-12 mt-4 pt-2"   *ngFor="let program of programs" >
-                <!-- <a href="/details"> [ESTE TIPO DE REDIRECCION YA NO SIRVE CUANDO CONTIENE  UN "ID"]-->
-                <a [routerLink]="['/program/details', program.id]" style="color: inherit; text-decoration: none;">
-                  <!-- NOTA: para que el programa seleccionado quede guardado y poder usar en otra vista toca crear variables que lo almacenen, si la consulta en la otra vista ya lo contiene no es necesario almacenarlo en variables -->
+          <ng-container *ngFor="let program of programs">
+            <div class="col-lg-4 col-md-6 col-12 mt-4 pt-2"  *ngIf="program.status != 0" > 
+              <!-- <a href="/details"> [ESTE TIPO DE REDIRECCION YA NO SIRVE CUANDO CONTIENE  UN "ID"]-->
+              <a [routerLink]="['/program/details', program.id]" style="color: inherit; text-decoration: none;">
+                <!-- NOTA: para que el programa seleccionado quede guardado y poder usar en otra vista toca crear variables que lo almacenen, si la consulta en la otra vista ya lo contiene no es necesario almacenarlo en variables -->
                 <div class="service-wrapper rounded position-relative text-center border p-4 pt-5 pb-5">
-                    <div class="icon text-custom">
-                        <!-- <i class="bi bi-code"></i> -->
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-code" viewBox="0 0 16 16">
-                            <path d="M5.854 4.854a.5.5 0 1 0-.708-.708l-3.5 3.5a.5.5 0 0 0 0 .708l3.5 3.5a.5.5 0 0 0 .708-.708L2.707 8zm4.292 0a.5.5 0 0 1 .708-.708l3.5 3.5a.5.5 0 0 1 0 .708l-3.5 3.5a.5.5 0 0 1-.708-.708L13.293 8z"/>
-                          </svg>
-                          <!-- ICONO, PENDIENTE PARA CONSUMIR DESDE API -->
-                    </div>
-                    <div class="content mt-3">
-                        <h4 class="title text-uppercase">{{program.name}}</h4>
-                        <p class="text-muted mt-3 mb-0">{{program.description}}</p>
-                        <!-- <p>Duration: {{program.duration}}</p> -->
+                  <!-- <div class="icon text-custom">
+                      <i class="bi bi-code"></i> -->
+                      <!--<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-code" viewBox="0 0 16 16">
+                          <path d="M5.854 4.854a.5.5 0 1 0-.708-.708l-3.5 3.5a.5.5 0 0 0 0 .708l3.5 3.5a.5.5 0 0 0 .708-.708L2.707 8zm4.292 0a.5.5 0 0 1 .708-.708l3.5 3.5a.5.5 0 0 1 0 .708l-3.5 3.5a.5.5 0 0 1-.708-.708L13.293 8z"/>
+                        </svg>
+                         ICONO, PENDIENTE PARA CONSUMIR DESDE API 
+                  </div>-->
+                  <div class="content mt-3">
+                      <h4  class="title text-uppercase">{{program.name}}</h4>
+                      <p class="text-muted mt-3 mb-0 text-justify">{{program.description}}</p>
+                      <!-- <p>Duration: {{program.duration}}</p> -->
 
-                    </div>
+                  </div>
                 </div>
-            </a>
+              </a>
             </div>
-
+          </ng-container>
         </div>
     </div>
 </section>

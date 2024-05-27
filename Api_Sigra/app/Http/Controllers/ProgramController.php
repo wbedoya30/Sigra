@@ -32,7 +32,8 @@ class ProgramController extends Controller
                 "duration" => "required|string",
                 "awarded_title" => "required|string",
                 "image"=> "nullable|string",
-                "coordinator_id" => "required|exists:users,id",
+                'status' => 'nullable|boolean',
+                "coordinator_id" => "nullable|exists:users,id",
                 //configurar unico para varios campos en el mismo regisro
             ]);
 
@@ -79,6 +80,7 @@ class ProgramController extends Controller
                 'duration' => 'nullable|string',
                 'awarded_title' => 'nullable|string',
                 "image"=> "nullable|string",
+                'status' => 'nullable|boolean',
                 'coordinator_id' => 'nullable|exists:users,id',
             ]);
 
@@ -100,7 +102,8 @@ class ProgramController extends Controller
     {
         try {
             $program = Program::findOrFail($id);
-            $program->delete();
+            //$program->delete();
+            $program->update(['status' => false]);
             return response()->json([
                 'message' => 'El programa ha sido eliminado.',
             ], 200);

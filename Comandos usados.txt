@@ -26,6 +26,7 @@ _______________________________         DATABASE
 drop database sigra; create database sigra;
 -------------------------------
 _______________________________         ANGULAR
+ng generate guard auth //crear archivo guardian
 ng new Sigra //crear proyecto
 - configurar la estructura de carpetas
 //crear un componente sin el css y las pruebas
@@ -57,6 +58,9 @@ ng g component dashboard/admin --inline-style --skip-tests
 ng g component dashboard/admin/pages/home-admin --inline-style --skip-tests
 ng g component dashboard/admin/pages/user --inline-style --skip-tests
 ng g service dashboard/admin/pages/user/services/user  --skip-tests
+
+ng g component dashboard/admin/pages/admin-subjects --inline-style --skip-tests
+ng g service dashboard/admin/pages/admin-subjects/services/subject  --skip-tests
 
 ng g service dashboard/pages/programs  --skip-tests
 -------------------------------
