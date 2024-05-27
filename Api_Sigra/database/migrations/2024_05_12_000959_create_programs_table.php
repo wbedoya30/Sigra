@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('awarded_title')->unique()->nullable();
             // $table->bigInteger('coordinator_id')->unsigned();
             // $table->foreign('coordinator_id')->references('id')->on('users');
-
+            //
             $table->unique(['description', 'awarded_title']);
             $table->timestamps();
         });
