@@ -33,10 +33,7 @@ export class ProgramsComponent implements OnInit  {
 
 
   constructor(
-    public fb:FormBuilder,
     public programService: ProgramService,
-      //   // public modelService: NgbModal,
-      // private http: HttpClient,
   ) { }
 
   async ngOnInit() {

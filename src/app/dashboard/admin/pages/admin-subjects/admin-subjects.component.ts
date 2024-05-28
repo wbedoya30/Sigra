@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
 import { SubjectService } from './services/subject.service';
+import { ProgramService } from '../admin-programs/services/program.service';
 
 @Component({
   selector: 'app-admin-subjects',
@@ -27,24 +28,28 @@ export class AdminSubjectsComponent implements OnInit{
   name:any =null;
   description:any =null;
   image:any =null;
-  duration = null;
-  awarded_title = null;
+  code = null;
+  credits = null;
   status = 1;
   subjectId:any =null;
 
   subjects: any[] = [];
+
 
   btnUpdateShow:boolean = false;
   btnSaveShow:boolean = true;
 
   constructor(
     public _subjectService: SubjectService,
+    public programService: ProgramService,
     // private formBuilder:FormBuilder,
     // private router: Router,
   ) {}
 
   ngOnInit() {
     this.getSubjects();
+    this.getTaxonomy();
+    this.getPrograms();
   }
 
   getSubjects(){
@@ -54,16 +59,17 @@ export class AdminSubjectsComponent implements OnInit{
     })
   }
 
+
   registerSubject(){
-    if(!this.name || !this.description || !this.duration || !this.awarded_title){
+    if(!this.name || !this.description || !this.code || !this.credits){
       alert('Debe llenar todos los campos');
       return;
     }
     let data = {
       name: this.name,
       description: this.description,
-      duration: this.duration,
-      awarded_title: this.awarded_title,
+      code: this.code,
+      credits: this.credits,
       status: this.status,
     }
     this._subjectService.registerSubject(data).subscribe((resp:any)=>{
@@ -85,9 +91,9 @@ export class AdminSubjectsComponent implements OnInit{
     this.subjectId = subject.id; 
     this.name = subject.name;
     this.description = subject.description;
-    this.duration = subject.duration; 
+    this.code = subject.code; 
     this.status = subject.status;
-    this.awarded_title = subject.awarded_title;
+    this.credits = subject.credits;
     this.UpdateShowBtn();
   }
 
@@ -95,9 +101,9 @@ export class AdminSubjectsComponent implements OnInit{
     let subject = {
       name: this.name,
       description: this.description,
-      duration: this.duration,
+      code: this.code,
       status: this.status,
-      awarded_title: this.awarded_title,
+      credits: this.credits,
       id: this.subjectId,
     };
 
@@ -126,9 +132,52 @@ export class AdminSubjectsComponent implements OnInit{
     this.btnSaveShow = true;
     this.name =null;
     this.description =null;
-    this.duration =null;
-    this.awarded_title = null;
+    this.code =null;
+    this.credits = null;
     this.status = 1;
     this.subjectId =null;
+  }
+  ///////////////////////////////////////77
+  levelTaxonomy: any[] = [];
+  verb:any=null;
+        taxonomy_level:any=null;
+  getTaxonomy(){
+    this._subjectService.showTaxonomy().subscribe((resp:any) => {
+      this.levelTaxonomy = resp.levelTaxonomy;
+      console.log(resp);
+    })
+  }
+  registertaxonomy(){
+    if(!this.verb || !this.taxonomy_level){
+      alert('Debe llenar todos los campos');
+      return;
+    }
+    let data = {
+      verb: this.verb,
+      taxonomy_level: this.taxonomy_level
+    }
+    this._subjectService.registerTaxonomy(data).subscribe((resp:any)=>{
+      //console.log(resp);
+      if(!resp.error){
+        this.getTaxonomy();
+        alert(resp.message);
+        return;
+        alert('Asignatura registrado correctamente');
+       }
+      else{
+        alert(resp.message);
+        return;
+      }
+    })
+  }
+
+  programs: any [] = [];
+  
+  getPrograms(){
+    this.programService.showPrograms().subscribe((resp:any) => {
+      this.programs = resp.programs;
+      console.log(resp);
+
+    })
   }
 }

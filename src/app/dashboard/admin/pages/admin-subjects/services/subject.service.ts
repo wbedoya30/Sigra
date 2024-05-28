@@ -31,7 +31,9 @@ export class SubjectService {
 
   //REGISTER
   registerSubject(data:any){
+    //console.log(this._authService.token)
     const headers = new HttpHeaders().set('Authorization', `Bearer ${this._authService.token}`);
+    console.log(headers);
     return this._http.post<any>(this.api_URL + '/subjects', data, { headers }).pipe(map((resp:any)=> {
       return resp
     }))
@@ -52,4 +54,18 @@ export class SubjectService {
 
   //SERVICIO DE PENSUM
   
+  //SERVICIO TAXONOIMIA
+  registerTaxonomy(data:any){
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${this._authService.token}`);
+    return this._http.post<any>(this.api_URL + '/levels', data, { headers }).pipe(map((resp:any)=> {
+      return resp
+    }))
+  }
+  
+  showTaxonomy(){
+    return this._http.get<any>(this.api_URL + '/levels').pipe(map((resp:any)=> {
+      return resp
+    }))
+  }
+
 }

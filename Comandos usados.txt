@@ -4,6 +4,7 @@ git clone https://github.com/obregon-josh/sigra.git
 Estando dentro del directorio sigra
 
 npm install
+
 ng serve
 
 --------- Laravel
@@ -14,8 +15,12 @@ cp .env.example .env
 // configurar la base de datos en ".env"
 php artisan install:api --passport
 php artisan passport:client --personal
-php artisan migrate --seed
+php artisan migrate --seed 
+
 php artisan serve
+
+
+php artisan migrate:fresh --seed 
 
 si tienes algún error de key, ejecuta este comando
 php artisan key:generate

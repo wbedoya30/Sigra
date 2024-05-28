@@ -30,13 +30,12 @@
         <td>{{subject.id}}</td>
         <td>{{subject.name}}</td>
         <td>{{subject.description}}</td>
-        <!-- <td>{{subject.image}}</td> -->
         <td>{{subject.code}}</td>
         <td>{{subject.credits}}</td>
-        <td>Pendiente - Base de datos</td>
+        <td>{{subject.status}}</td>
         <td>
           <input type="button" value="Edit" (click)="editSubject(subject)" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-success me-2"/>
-          <input *ngIf="subject.status != false" type="button" value="Delete" (click)="deleteSubject(subject)" class="btn btn-danger"/>
+          <input *ngIf="subject.status != false" type="button" value="Delete" (click)="deleteSubject(subject)" class="btn btn-danger"/>    
         </td>
     </tr>
 </tbody>
@@ -72,16 +71,39 @@
           </div> -->
           <div class="col-12">
             <label class="form-label">Código</label>
-            <input [(ngModel)]="duration" type="text" class="form-control" name="duration">
+            <input [(ngModel)]="code" type="text" class="form-control" name="code">
           </div>
           <div class="col-12">
             <label class="form-label">Créditos</label>
-            <input [(ngModel)]="awarded_title" type="text" class="form-control" name="awarded_title">
+            <input [(ngModel)]="credits" type="text" class="form-control" name="credits">
           </div>
           <div class="col-12">
             <label class="form-label">Estado</label>
             <input [(ngModel)]="status" type="status" class="form-control" name="status">
           </div>
+          <!--<div class="col-12">
+            <label class="form-label">Programa</label>
+            <input [(ngModel)]="status" type="status" class="form-control" name="status">
+          </div> este es
+
+           <div class="col-12">
+            <div class="row">
+              <div class="col-md-6">
+                <label for="inputPassword4" class="form-label">verb</label>
+                <select [(ngModel)]="verb" name="verb" class="form-control">
+                  <option value="1" selected>Activo</option>
+                  <option value="0">Inactivo</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="inputPassword4" class="form-label">Level</label>
+                <select [(ngModel)]="taxonomy_level" name="taxonomy_level" class="form-control">
+                  <option value="docente" selected>Docente</option>
+                  <option value="coordinador">Coordinador</option>
+                </select>
+              </div>
+            </div>
+          </div> -->
 
 
           <!-- <div class="col-12">
@@ -123,3 +145,5 @@
     </div>
   </div>
 </div>
+
+

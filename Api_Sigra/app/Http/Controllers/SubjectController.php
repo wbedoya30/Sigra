@@ -31,6 +31,7 @@ class SubjectController extends Controller
                 "code" => "required|string|unique:subjects,code|max:50",
                 "credits" => "required|string",
                 "description" => "required|string",
+                'status' => 'nullable|boolean',
             ]);
 
             $subject = Subject::create($validatedData);
@@ -71,6 +72,7 @@ class SubjectController extends Controller
                 'code' => 'nullable|string|max:50',
                 'credits' => 'nullable|string',
                 'description' => 'nullable|string',
+                'status' => 'nullable|boolean',
             ]);
 
             $subject->update($validatedData);
@@ -91,7 +93,8 @@ class SubjectController extends Controller
     {
         try {
             $subject = Subject::findOrFail($id);
-            $subject->delete();
+            //$subject->delete();
+            $subject->update(['status' => false]);
             return response()->json([
                 'message' => 'La Asignatura ha sido eliminada.',
             ], 200);

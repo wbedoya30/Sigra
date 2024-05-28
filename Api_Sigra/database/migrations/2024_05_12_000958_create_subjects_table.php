@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('code')->unique()->nullable();
             $table->string('credits')->nullable();
             $table->text('description')->unique()->nullable();
+            $table->boolean('status')->default(1);
             $table->timestamps();
         });
     }

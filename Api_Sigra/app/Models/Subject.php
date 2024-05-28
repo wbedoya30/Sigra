@@ -14,6 +14,7 @@ class Subject extends Model
         'code',
         'credits',
         'description',
+        'status',
     ];
     //RELACIONES CON OTRAS TABLAS
     public function Pensum(){
