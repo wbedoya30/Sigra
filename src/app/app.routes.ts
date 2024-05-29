@@ -11,6 +11,7 @@ import { AdminProgramsComponent } from './dashboard/admin/pages/admin-programs/a
 import { AdminSubjectsComponent } from './dashboard/admin/pages/admin-subjects/admin-subjects.component';
 import { AuthGuard } from './auth/services/auth.guard';
 import { HomeAdminComponent } from './dashboard/admin/pages/home-admin/home-admin.component';
+import { AdminLearningResultComponent } from './dashboard/admin/pages/admin-learning-result/admin-learning-result.component';
 
 export const routes: Routes = [
   {//RAÍZ
@@ -55,7 +56,7 @@ export const routes: Routes = [
           },
           //CRUD
           {
-            path: 'users', 
+            path: 'users',
             component: UserComponent,
           },
           {
@@ -65,6 +66,10 @@ export const routes: Routes = [
           {
             path: 'subjects',
             component: AdminSubjectsComponent,
+          },
+          {
+            path: 'learning-results',
+            component: AdminLearningResultComponent,
           },
 
         ]

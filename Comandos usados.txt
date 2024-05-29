@@ -15,12 +15,12 @@ cp .env.example .env
 // configurar la base de datos en ".env"
 php artisan install:api --passport
 php artisan passport:client --personal
-php artisan migrate --seed 
+php artisan migrate --seed
 
 php artisan serve
 
 
-php artisan migrate:fresh --seed 
+php artisan migrate:fresh --seed
 
 si tienes algún error de key, ejecuta este comando
 php artisan key:generate
@@ -64,8 +64,14 @@ ng g component dashboard/admin/pages/home-admin --inline-style --skip-tests
 ng g component dashboard/admin/pages/user --inline-style --skip-tests
 ng g service dashboard/admin/pages/user/services/user  --skip-tests
 
+ng g service dashboard/admin/pages/learning-result/services/learning-result  --skip-tests
+ng g component dashboard/admin/pages/learning-result --inline-style --skip-tests
+
 ng g component dashboard/admin/pages/admin-subjects --inline-style --skip-tests
 ng g service dashboard/admin/pages/admin-subjects/services/subject  --skip-tests
+
+ng g component dashboard/admin/pages/admin-learning-result --inline-style --skip-tests
+ng g service dashboard/admin/pages/admin-learning-result/services/learning-result  --skip-tests
 
 ng g service dashboard/pages/programs  --skip-tests
 -------------------------------
