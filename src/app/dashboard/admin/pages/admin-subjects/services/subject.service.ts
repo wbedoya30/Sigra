@@ -12,8 +12,6 @@ export class SubjectService {
 
   constructor(
     private _http: HttpClient,
-    private _authService: AuthService,
-
   ) { }
 
   //show All
@@ -30,38 +28,48 @@ export class SubjectService {
   }
 
   //REGISTER
-  registerSubject(data:any){
-    //console.log(this._authService.token)
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${this._authService.token}`);
-    console.log(headers);
+  registerSubject(data:any , token:any){
+    let headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this._http.post<any>(this.api_URL + '/subjects', data, { headers }).pipe(map((resp:any)=> {
       return resp
     }))
   }
 
   //Update
-  updateSubject(subject:any){
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${this._authService.token}`);
+  updateSubject(subject:any, token:any){
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this._http.put<any>(this.api_URL + '/subjects/' + subject.id, subject,  { headers }).pipe(map((resp:any)=> {
       return resp
     }))
   }
   //Delete For Update
-  deleteSubject(subject:any): Observable<any>{
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${this._authService.token}`);
+  deleteSubject(subject:any, token:any): Observable<any>{
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this._http.delete(`${this.api_URL}/subjects/${subject.id}`,  { headers });
   }
 
-  //SERVICIO DE PENSUM
-  
-  //SERVICIO TAXONOIMIA
-  registerTaxonomy(data:any){
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${this._authService.token}`);
+  //////////////////SERVICIO DE PENSUM
+  registerPensum(dataPensum:any, token:any){
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this._http.post<any>(this.api_URL + '/pensums', dataPensum, { headers }).pipe(map((resp:any)=> {
+      return resp
+    }))
+  }
+  updatePensum(dataPensum:any, token:any){
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this._http.put<any>(this.api_URL + '/pensums/' + dataPensum.id, dataPensum,  { headers }).pipe(map((resp:any)=> {
+      return resp
+    }))
+  }
+
+  ///////////////////////SERVICIO TAXONOIMIA
+  registerTaxonomy(data:any, token:any){
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this._http.post<any>(this.api_URL + '/levels', data, { headers }).pipe(map((resp:any)=> {
       return resp
     }))
   }
-  
+
   showTaxonomy(){
     return this._http.get<any>(this.api_URL + '/levels').pipe(map((resp:any)=> {
       return resp

@@ -11,7 +11,8 @@ class SubjectController extends Controller
     {
         try {
             // $subjects = Subject::paginate(10);
-            $subjects = Subject::all();
+            // $subjects = Subject::all();
+            $subjects = Subject::with('program')->get();
             return response()->json([
                 'subjects' => $subjects,
             ], 200);
@@ -51,7 +52,8 @@ class SubjectController extends Controller
     public function show($id)
     {
         try {
-            $subject = Subject::findOrFail($id);
+            // $subject = Subject::findOrFail($id);
+            $subject = Subject::with('program')->findOrFail($id);
             return response()->json([
                 'subject' => $subject,
             ], 200);

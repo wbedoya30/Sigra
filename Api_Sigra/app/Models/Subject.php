@@ -23,4 +23,9 @@ class Subject extends Model
     public function LearningResult(){
         return $this->hasMany(LearningResult::class);
     }
+
+    public function Program()
+    {
+        return $this->belongsToMany(Program::class, 'pensums');
+    }
 }

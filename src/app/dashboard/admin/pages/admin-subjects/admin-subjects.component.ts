@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
 import { SubjectService } from './services/subject.service';
 import { ProgramService } from '../admin-programs/services/program.service';
+import { AuthService } from '../../../../auth/services/auth.service';
 
 @Component({
   selector: 'app-admin-subjects',
@@ -42,8 +43,7 @@ export class AdminSubjectsComponent implements OnInit{
   constructor(
     public _subjectService: SubjectService,
     public programService: ProgramService,
-    // private formBuilder:FormBuilder,
-    // private router: Router,
+    private _authService: AuthService,
   ) {}
 
   ngOnInit() {
@@ -65,6 +65,10 @@ export class AdminSubjectsComponent implements OnInit{
       alert('Debe llenar todos los campos');
       return;
     }
+    if(!this.programa_id){
+      alert('Debe seleccionar un programa');
+      return;
+    }
     let data = {
       name: this.name,
       description: this.description,
@@ -72,32 +76,58 @@ export class AdminSubjectsComponent implements OnInit{
       credits: this.credits,
       status: this.status,
     }
-    this._subjectService.registerSubject(data).subscribe((resp:any)=>{
-      //console.log(resp);
+
+    this._subjectService.registerSubject(data, this._authService.token).subscribe((resp:any)=>{
+      //console.log(resp.subject.id);
       if(!resp.error){
         this.getSubjects();
+        //AGREGAR LA ASIGNATURA A UN PROGRAMA (PENSUM)
+        this.registerPensum(resp.subject.id);
         alert(resp.message);
         return;
-        alert('Asignatura registrado correctamente');
        }
       else{
         alert(resp.message);
         return;
       }
     })
+
+  }
+  registerPensum(subject_id:any){
+    let dataPensum = {
+      subject_id: subject_id,
+      program_id: this.programa_id,
+    }
+    this._subjectService.registerPensum(dataPensum, this._authService.token).subscribe((resp:any)=>{
+      console.log(resp);
+      if(!resp.error){
+        this.getSubjects();
+        // alert(resp.message);
+        return;
+        //alert('Asignatura registrado correctamente');
+       }
+      else{
+        alert(resp.message);
+        return;
+      }
+    })
+
   }
 
+
   editSubject(subject:any){
-    this.subjectId = subject.id; 
+    this.subjectId = subject.id;
     this.name = subject.name;
     this.description = subject.description;
-    this.code = subject.code; 
+    this.code = subject.code;
     this.status = subject.status;
     this.credits = subject.credits;
+    this.programa_id = subject.program.map((program: any) => program.id);
+
     this.UpdateShowBtn();
   }
 
-  updateSubject(){
+  updateSubject(){ //no se esta actualizando el Pensum
     let subject = {
       name: this.name,
       description: this.description,
@@ -107,20 +137,40 @@ export class AdminSubjectsComponent implements OnInit{
       id: this.subjectId,
     };
 
-    this._subjectService.updateSubject(subject).subscribe(resp => {
+    this._subjectService.updateSubject(subject, this._authService.token).subscribe(resp => {
       this.getSubjects();
       this.SaveShowBtn();
       alert("Usuario actualizado");
     })
+    //UACTUALIZAR PENSUM
+    let dataPensum = {
+      subject_id: this.subjectId,
+      program_id: this.programa_id,
+    }
+    this._subjectService.updatePensum(dataPensum, this._authService.token).subscribe((resp:any)=>{
+      //console.log(resp);
+      if(!resp.error){
+        //this.getSubjects();
+        //alert(resp.message);
+        return;
+        //alert('Asignatura registrado correctamente');
+       }
+      else{
+        alert(resp.message);
+        return;
+      }
+    })
   }
-  deleteSubject(subject:any){
-    this._subjectService.deleteSubject(subject).subscribe(resp => {
+
+  deleteSubject(subject:any){ //debe recibir 2 parámetros para eliminar en 2 tablas
+    this._subjectService.deleteSubject(subject, this._authService.token ).subscribe(resp => {
       this.getSubjects();
     },
     error =>{
       alert("Error")
     });
     alert("La materia fue eliminada");
+    /////////////PENDIENTE ELIMINAR PENSUM
   }
 
   UpdateShowBtn(){
@@ -136,8 +186,9 @@ export class AdminSubjectsComponent implements OnInit{
     this.credits = null;
     this.status = 1;
     this.subjectId =null;
+    this.programa_id =null;
   }
-  ///////////////////////////////////////77
+  /////////////////////////////////////// LEVEL
   levelTaxonomy: any[] = [];
   verb:any=null;
         taxonomy_level:any=null;
@@ -156,7 +207,7 @@ export class AdminSubjectsComponent implements OnInit{
       verb: this.verb,
       taxonomy_level: this.taxonomy_level
     }
-    this._subjectService.registerTaxonomy(data).subscribe((resp:any)=>{
+    this._subjectService.registerTaxonomy(data, this._authService.token).subscribe((resp:any)=>{
       //console.log(resp);
       if(!resp.error){
         this.getTaxonomy();
@@ -170,9 +221,9 @@ export class AdminSubjectsComponent implements OnInit{
       }
     })
   }
-
+////////////////////////////////////////////////// PENSUM
   programs: any [] = [];
-  
+  programa_id:any=null;
   getPrograms(){
     this.programService.showPrograms().subscribe((resp:any) => {
       this.programs = resp.programs;
@@ -180,4 +231,5 @@ export class AdminSubjectsComponent implements OnInit{
 
     })
   }
+
 }

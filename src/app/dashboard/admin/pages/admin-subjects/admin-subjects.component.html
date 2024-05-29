@@ -23,6 +23,7 @@
         <th>Créditos</th>
         <th>Estado</th>
         <th>Acción</th>
+        <th>Programa</th>
     </tr>
 </thead>
 <tbody>
@@ -35,7 +36,11 @@
         <td>{{subject.status}}</td>
         <td>
           <input type="button" value="Edit" (click)="editSubject(subject)" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-success me-2"/>
-          <input *ngIf="subject.status != false" type="button" value="Delete" (click)="deleteSubject(subject)" class="btn btn-danger"/>    
+          <input *ngIf="subject.status != false" type="button" value="Delete" (click)="deleteSubject(subject)" class="btn btn-danger"/>
+        </td>
+        <!-- <td>{{subject.program}}</td> -->
+        <td>
+          <span *ngFor="let program of subject.program">{{program.id}}; </span>
         </td>
     </tr>
 </tbody>
@@ -70,74 +75,40 @@
             <input type="image" class="form-control" name="image">
           </div> -->
           <div class="col-12">
-            <label class="form-label">Código</label>
-            <input [(ngModel)]="code" type="text" class="form-control" name="code">
-          </div>
-          <div class="col-12">
-            <label class="form-label">Créditos</label>
-            <input [(ngModel)]="credits" type="text" class="form-control" name="credits">
-          </div>
-          <div class="col-12">
-            <label class="form-label">Estado</label>
-            <input [(ngModel)]="status" type="status" class="form-control" name="status">
-          </div>
-          <!--<div class="col-12">
-            <label class="form-label">Programa</label>
-            <input [(ngModel)]="status" type="status" class="form-control" name="status">
-          </div> este es
-
-           <div class="col-12">
             <div class="row">
               <div class="col-md-6">
-                <label for="inputPassword4" class="form-label">verb</label>
-                <select [(ngModel)]="verb" name="verb" class="form-control">
-                  <option value="1" selected>Activo</option>
-                  <option value="0">Inactivo</option>
+                <label class="form-label">Código</label>
+                <input [(ngModel)]="code" type="text" class="form-control" name="code">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Créditos</label>
+                <input [(ngModel)]="credits" type="text" class="form-control" name="credits">
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="row">
+              <div class="col-md-6">
+                <label for="inputPassword4" class="form-label">Estado</label>
+                <select [(ngModel)]="status" name="status" class="form-control">
+                  <option [value]="1" selected>Activo</option>
+                  <option [value]="0">Inactivo</option>
                 </select>
               </div>
               <div class="col-md-6">
-                <label for="inputPassword4" class="form-label">Level</label>
-                <select [(ngModel)]="taxonomy_level" name="taxonomy_level" class="form-control">
-                  <option value="docente" selected>Docente</option>
-                  <option value="coordinador">Coordinador</option>
+                <label for="inputPassword4" class="form-label">Programa al que pertenece:</label>
+                <select [(ngModel)]="programa_id" name="programa_id" class="form-control">
+                  <ng-container *ngFor="let program of programs">
+                    <option *ngIf="program.status != 0"  value="{{program.id}}">{{program.name}}</option>
+                  </ng-container>
                 </select>
               </div>
             </div>
-          </div> -->
+          </div>
 
-
-          <!-- <div class="col-12">
-            <label for="inputPassword4" class="form-label">Semestre</label>
-            <input type="number"  class="form-control" name="password" id="inputPassword4">
-          </div> -->
-            <!-- <div class="col-12">
-              <label for="inputName" class="form-label">Diploma</label>
-              <input type="text"  class="form-control" name="name" id="inputName">
-            </div> -->
-            <!-- <div class="col-12">
-              <label for="inputName" class="form-label">Habilidades</label>
-              <input type="text"  class="form-control" name="name" id="inputName">
-            </div> -->
-            <!-- <div class="col-12">
-              <label for="inputName" class="form-label">Conocimientos</label>
-              <input type="text"  class="form-control" name="name" id="inputName">
-            </div> -->
-            <!-- <div class="col-12">
-              <label for="inputName" class="form-label">Tipo</label>
-              <input type="text"  class="form-control" name="name" id="inputName">
-            </div> -->
-            <!-- <div class="col-12">
-              <label for="inputName" class="form-label">Capacidades</label>
-              <input type="text"  class="form-control" name="name" id="inputName">
-            </div> -->
-            <!-- <div class="col-12">
-              <label for="inputName" class="form-label">Competencias</label>
-              <input type="text"  class="form-control" name="name" id="inputName">
-            </div> -->
-    
       </div>
       <div class="modal-footer">
-        
+
         <!-- <button type="button" class="btn btn-warning"  data-bs-dismiss="modal">Cerrar</button> -->
         <button *ngIf="btnSaveShow" (click)="registerSubject()"  type="button" class="btn btn-primary" >Registrar Asignatura</button>
         <button *ngIf="btnUpdateShow" (click)="updateSubject()"  type="button" class="btn btn-primary" >Guardar</button>

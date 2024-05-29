@@ -83,7 +83,10 @@
           </div>
           <div class="col-12">
             <label class="form-label">Estado</label>
-            <input [(ngModel)]="status" type="status" class="form-control" name="status">
+            <select [(ngModel)]="status" name="status" class="form-control">
+              <option [value]="1" selected>Activo</option>
+              <option [value]="0">Inactivo</option>
+            </select>
           </div>
 
 
@@ -115,10 +118,10 @@
               <label for="inputName" class="form-label">Competencias</label>
               <input type="text"  class="form-control" name="name" id="inputName">
             </div> -->
-    
+
       </div>
       <div class="modal-footer">
-        
+
         <!-- <button type="button" class="btn btn-warning"  data-bs-dismiss="modal">Cerrar</button> -->
         <button *ngIf="btnSaveShow" (click)="registerProgram()"  type="button" class="btn btn-primary" >Registrar Programa</button>
         <button *ngIf="btnUpdateShow" (click)="updateProgram()"  type="button" class="btn btn-primary" >Guardar</button>

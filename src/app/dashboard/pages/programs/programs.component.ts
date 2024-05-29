@@ -40,7 +40,7 @@ export class ProgramsComponent implements OnInit  {
     await this.getPrograms();
   }
   programs: any [] = [];
-  
+
   getPrograms(){
     this.programService.showPrograms().subscribe((resp:any) => {
       this.programs = resp.programs;

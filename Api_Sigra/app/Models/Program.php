@@ -29,6 +29,7 @@ class Program extends Model
     public function GraduateProfile(){
         return $this->hasMany(GraduateProfile::class);
     }
+
     public function subject()
     {
         return $this->belongsToMany(Subject::class, 'pensums');
