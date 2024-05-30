@@ -10,8 +10,8 @@ import { UserComponent } from './dashboard/admin/pages/user/user.component';
 import { AdminProgramsComponent } from './dashboard/admin/pages/admin-programs/admin-programs.component';
 import { AdminSubjectsComponent } from './dashboard/admin/pages/admin-subjects/admin-subjects.component';
 import { AuthGuard } from './auth/services/auth.guard';
-import { HomeAdminComponent } from './dashboard/admin/pages/home-admin/home-admin.component';
-import { AdminLearningResultComponent } from './dashboard/admin/pages/admin-learning-result/admin-learning-result.component';
+import { AdminLevelComponent } from './dashboard/admin/pages/admin-level/admin-level.component';
+import { AdminLearningResultsComponent } from './dashboard/admin/pages/admin-learning-results/admin-learning-results.component';
 
 export const routes: Routes = [
   {//RAÍZ
@@ -69,7 +69,11 @@ export const routes: Routes = [
           },
           {
             path: 'learning-results',
-            component: AdminLearningResultComponent,
+            component: AdminLearningResultsComponent,
+          },
+          {
+            path: 'levels',
+            component: AdminLevelComponent,
           },
 
         ]

@@ -19,10 +19,7 @@ import { AuthService } from '../../../../auth/services/auth.service';
   styles: ``,
   providers: [
     SubjectService,
-    // HttpClient,
-    // HttpClientModule,
-    // RouterModule,
-
+    AuthService,
   ],
 })
 export class AdminSubjectsComponent implements OnInit{
@@ -34,15 +31,12 @@ export class AdminSubjectsComponent implements OnInit{
   status = 1;
   subjectId:any =null;
 
-  subjects: any[] = [];
-
-
   btnUpdateShow:boolean = false;
   btnSaveShow:boolean = true;
 
   constructor(
     public _subjectService: SubjectService,
-    public programService: ProgramService,
+    public _programService: ProgramService,
     private _authService: AuthService,
   ) {}
 
@@ -52,6 +46,7 @@ export class AdminSubjectsComponent implements OnInit{
     this.getPrograms();
   }
 
+  subjects: any[] = [];
   getSubjects(){
     this._subjectService.showSubjects().subscribe((resp:any) => {
       this.subjects = resp.subjects;
@@ -225,7 +220,7 @@ export class AdminSubjectsComponent implements OnInit{
   programs: any [] = [];
   programa_id:any=null;
   getPrograms(){
-    this.programService.showPrograms().subscribe((resp:any) => {
+    this._programService.showPrograms().subscribe((resp:any) => {
       this.programs = resp.programs;
       console.log(resp);
 

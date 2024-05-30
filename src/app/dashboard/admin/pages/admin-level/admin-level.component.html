@@ -1,0 +1,99 @@
+
+<router-outlet></router-outlet>
+
+<!-- <p>level works!</p> -->
+
+<section class="container">
+  <nav class="navbar navbar-expand-lg navbar-light" style="background: #435d7d; ">
+    <div class="container-fluid">
+      <a class="navbar-brand" style="color: white;">NIVEL</a>
+      <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button> -->
+        <div class="d-flex">
+          <button class="btn btn-success" type="submit"  data-bs-toggle="modal" data-bs-target="#exampleModal">Nuevo Nivel</button>
+        </div>
+      </div>
+  </nav>
+<table class="table table-striped">
+<thead>
+    <tr>
+        <th>Id</th>
+        <th>Nivel</th>
+        <th>Verbo</th>
+        <!-- <th>Estado</th> -->
+        <th>Acción</th>
+    </tr>
+</thead>
+<tbody>
+    <tr *ngFor="let level of levels">
+        <td>{{level.id}}</td>
+        <td>{{level.taxonomy_level}}</td>
+        <td>{{level.verb}}</td>
+        <!-- <td>1</td> -->
+        <td>
+          <!-- <input type="button" value="Edit" (click)="editlevel(level)" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-success me-2"/> -->
+          <input  type="button" value="Delete" (click)="deleteLevel(level)" class="btn btn-danger"/>
+        </td>
+        <!-- *ngIf="level.status != false" -->
+    </tr>
+</tbody>
+</table>
+</section>
+
+<!-- //////////////////////////////////////////////////////////// -->
+
+<!-- Button trigger modal -->
+<!-- Button trigger modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Nivel</h5>
+        <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+        <button (click)="SaveShowBtn()" type="button" class="btn btn-dark"  data-bs-dismiss="modal">X</button>
+      </div>
+      <div class="modal-body">
+        <div class="col-12">
+          <div class="row">
+            <div class="col-md-6">
+              <label for="inputPassword4" class="form-label">Nivel dela taxonomía</label>
+              <select [(ngModel)]="taxonomy_level" name="taxonomy_level" class="form-control">
+                <!-- in:1,recordar, 2,entender,3,aplicar,4,analizar,5, evaluar,6,crear", -->
+                <option value="recordar">Recordar</option>
+                <option value="entender">Entender</option>
+                <option value="aplicar">Aplicar</option>
+                <option value="analizar">Analizar</option>
+                <option value="evaluar">Evaluar</option>
+                <option value="crear">Crear</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Verbo</label>
+              <input [(ngModel)]="verb" type="text"   class="form-control" name="verb">
+
+
+              <!-- <label for="inputPassword4" class="form-label">Verbo:</label>
+              <select [(ngModel)]="verb" name="programa_id" class="form-control">
+                <ng-container *ngFor="let level of levels">
+                  <option *ngIf="level.status != 0"  value="{{level.id}}">{{level.verb}}</option>
+                </ng-container>
+              </select> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+
+        <!-- <button type="button" class="btn btn-warning"  data-bs-dismiss="modal">Cerrar</button> -->
+        <button *ngIf="btnSaveShow" (click)="registerLevel()"  type="button" class="btn btn-primary" >Registrar levela</button>
+        <button *ngIf="btnUpdateShow" (click)="updateLevel()"  type="button" class="btn btn-primary" >Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ///////////////////////////////// -->
+

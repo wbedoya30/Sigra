@@ -3,6 +3,7 @@ import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
 import { ProgramService } from './services/program.service';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../../../auth/services/auth.service';
 
 @Component({
   selector: 'app-admin-programs',
@@ -17,6 +18,7 @@ import { CommonModule } from '@angular/common';
   styles: ``,
   providers: [
     ProgramService,
+    AuthService,
     // HttpClient,
     // HttpClientModule,
     // RouterModule,
@@ -39,8 +41,7 @@ export class AdminProgramsComponent implements OnInit{
 
   constructor(
     public _programService: ProgramService,
-    // private formBuilder:FormBuilder,
-    // private router: Router,
+    private _authService: AuthService,
   ) {}
 
   ngOnInit() {
@@ -66,7 +67,7 @@ export class AdminProgramsComponent implements OnInit{
       awarded_title: this.awarded_title,
       status: this.status,
     }
-    this._programService.registerProgram(data).subscribe((resp:any)=>{
+    this._programService.registerProgram(data, this._authService.token).subscribe((resp:any)=>{
       //console.log(resp);
       if(!resp.error){
         this.getPrograms();
@@ -82,10 +83,10 @@ export class AdminProgramsComponent implements OnInit{
   }
 
   editProgram(program:any){
-    this.programId = program.id; 
+    this.programId = program.id;
     this.name = program.name;
     this.description = program.description;
-    this.duration = program.duration; 
+    this.duration = program.duration;
     this.status = program.status;
     this.awarded_title = program.awarded_title;
     this.UpdateShowBtn();
@@ -101,14 +102,14 @@ export class AdminProgramsComponent implements OnInit{
       id: this.programId,
     };
 
-    this._programService.updateProgram(program).subscribe(resp => {
+    this._programService.updateProgram(program, this._authService.token).subscribe(resp => {
       this.getPrograms();
       this.SaveShowBtn();
       alert("Usuario actualizado");
     })
   }
   deleteProgram(program:any){
-    this._programService.deleteProgram(program).subscribe(resp => {
+    this._programService.deleteProgram(program, this._authService.token).subscribe(resp => {
       this.getPrograms();
     },
     error =>{

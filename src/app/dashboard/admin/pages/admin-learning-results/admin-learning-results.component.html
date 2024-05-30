@@ -1,0 +1,88 @@
+<!-- <p>admin-learning-results works!</p> -->
+<section class="container">
+  <nav class="navbar navbar-expand-lg navbar-light" style="background: #435d7d; ">
+    <div class="container-fluid">
+      <a class="navbar-brand" style="color: white;">RESULTADOS DE APRENDIZAJES</a>
+      <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button> -->
+        <div class="d-flex">
+          <button class="btn btn-success" type="submit"  data-bs-toggle="modal" data-bs-target="#exampleModal">Nuevo Resultado</button>
+        </div>
+      </div>
+  </nav>
+<table class="table table-striped">
+<thead>
+    <tr>
+        <th>Id</th>
+        <th>definition</th>
+        <th>Asignatura</th>
+        <th>Nivel de Bloom</th>
+        <th>Acción</th>
+    </tr>
+</thead>
+<tbody>
+    <tr *ngFor="let learning_result of learning_results">
+        <td>{{learning_result.id}}</td>
+        <td>{{learning_result.definition}}</td>
+        <td>{{learning_result.subject_id}}</td>
+        <td>{{learning_result.level_id}}</td>
+        <td>
+          <!-- <input type="button" value="Edit" (click)="editLearningResult(learning_result)" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-success me-2"/> -->
+          <input  type="button" value="Delete" (click)="deleteLearningResult(learning_result)" class="btn btn-danger"/>
+        </td>
+        <!-- *ngIf="learning_results.status != false" -->
+    </tr>
+</tbody>
+</table>
+</section>
+
+<!-- //////////////////////////////////////////////////////////// -->
+
+<!-- Button trigger modal -->
+<!-- Button trigger modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Resultado de Aprendizaje</h5>
+        <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+        <button (click)="SaveShowBtn()" type="button" class="btn btn-dark"  data-bs-dismiss="modal">X</button>
+      </div>
+      <div class="modal-body">
+        <div class="col-12">
+          <label class="form-label">Definicion</label>
+          <input [(ngModel)]="definition" type="text"   class="form-control" name="definition">
+        </div>
+        <div class="col-12">
+          <div class="row">
+            <div class="col-md-6">
+              <label for="inputPassword4" class="form-label">Asignatura a la que pertenece:</label>
+              <select [(ngModel)]="subject_id" name="level_id" class="form-control">
+                <ng-container *ngFor="let subject of subjects">
+                  <option *ngIf="subject.status != 0" value="{{subject.id}}">{{subject.name}}</option>
+                </ng-container>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label for="inputPassword4" class="form-label">Nivel de Bloom al que pertenece:</label>
+              <select [(ngModel)]="level_id" name="level_id" class="form-control">
+                <ng-container *ngFor="let level of levels">
+                  <option value="{{level.id}}">{{level.taxonomy_level}} : {{level.verb}}</option>
+                </ng-container>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+
+        <!-- <button type="button" class="btn btn-warning"  data-bs-dismiss="modal">Cerrar</button> -->
+        <button *ngIf="btnSaveShow" (click)="registerLearningResult()"  type="button" class="btn btn-primary" >Registrar Resultado de Aprendizaje</button>
+        <!-- <button *ngIf="btnUpdateShow" (click)="updateLevel()"  type="button" class="btn btn-primary" >Guardar</button> -->
+      </div>
+    </div>
+  </div>
+</div>

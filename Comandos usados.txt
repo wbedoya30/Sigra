@@ -14,18 +14,13 @@ composer install
 cp .env.example .env
 // configurar la base de datos en ".env"
 php artisan install:api --passport
-php artisan passport:client --personal
-php artisan migrate --seed
+//eliminar las nuevas migraciones que se crearon de passport
 
+php artisan key:generate
+php artisan migrate:fresh --seed
 php artisan serve
 
-
-php artisan migrate:fresh --seed
-
-si tienes algún error de key, ejecuta este comando
-php artisan key:generate
-
-
+php artisan passport:client --personal
 
 _______________________________         DATABASE
 drop database sigra; create database sigra;
@@ -64,8 +59,11 @@ ng g component dashboard/admin/pages/home-admin --inline-style --skip-tests
 ng g component dashboard/admin/pages/user --inline-style --skip-tests
 ng g service dashboard/admin/pages/user/services/user  --skip-tests
 
-ng g service dashboard/admin/pages/learning-result/services/learning-result  --skip-tests
-ng g component dashboard/admin/pages/learning-result --inline-style --skip-tests
+ng g service dashboard/admin/pages/admin-learning-results/services/learning-result  --skip-tests
+ng g component dashboard/admin/pages/admin-learning-results --inline-style --skip-tests
+
+ng g component dashboard/admin/pages/admin-level --inline-style --skip-tests
+ng g service dashboard/admin/pages/admin-level/services/level  --skip-tests
 
 ng g component dashboard/admin/pages/admin-subjects --inline-style --skip-tests
 ng g service dashboard/admin/pages/admin-subjects/services/subject  --skip-tests
